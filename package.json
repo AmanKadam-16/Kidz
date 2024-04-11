@@ -88,7 +88,7 @@
     "yup": "0.32.11"
   },
   "scripts": {
-    "start": "react-scripts  --openssl-legacy-provider start",
+    "start": "set NODE_OPTIONS=--openssl-legacy-provider && ng serve",
     "build": "react-scripts build",
     "eject": "react-scripts eject",
     "lint": "eslint .",
