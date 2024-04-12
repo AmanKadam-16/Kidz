@@ -18,7 +18,7 @@ const Login = Loader(lazy(()=> import('src/components/Login/Login')))
 const AuthenticationRoute = [
   {
     path: '/',
-    element: <Navigate to="Login" replace />
+    element: <Login/>
   },
  
   {
