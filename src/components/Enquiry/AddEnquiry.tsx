@@ -81,6 +81,7 @@ const AddEnquiry = () => {
     }, [Id]);
     useEffect(() => {
         dispatch(getClass())
+        dispatch(resetAddEnquiryDetails);
         clickCancel()
     }, []);
 
