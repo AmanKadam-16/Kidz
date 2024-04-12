@@ -71,7 +71,7 @@ const AddEnquiry = () => {
         }
     }, [EnquiryDetails])
     useEffect(() => {
-        if (Id!==""){
+        if (Id!==undefined){
             const GetEnquiryDetailsBody: IGetEnquiryDetailsBody = {
                 ID: Number(Id)
             }
