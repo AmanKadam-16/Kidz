@@ -55,7 +55,7 @@ const AddEnquiry = () => {
     const EnquiryDetails = useSelector((state: RootState) => state.Enquiry.EnquiryDetails);
     console.log(EnquiryDetails)
     useEffect(() => {
-        if (EnquiryDetails != null) {
+        if (EnquiryDetails !== null) {
             setClassID(EnquiryDetails.ClassId)
             setStudentName(EnquiryDetails.StudentName)
             setBirthDate(getCalendarFormat(EnquiryDetails.Birthdate))
@@ -86,7 +86,7 @@ const AddEnquiry = () => {
     }, []);
 
     useEffect(() => {
-        if (AddStudentMsg !== '') {
+        if (AddStudentMsg !=='') {
             toast.success(AddStudentMsg);
             dispatch(resetAddEnquiryDetails);
             clickCancel();
