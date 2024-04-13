@@ -81,17 +81,15 @@ const AddEnquiry = () => {
     }, [Id]);
     useEffect(() => {
         dispatch(getClass())
-        dispatch(resetAddEnquiryDetails);
         clickCancel()
     }, []);
 
     useEffect(() => {
         if (AddStudentMsg !=='') {
             toast.success(AddStudentMsg);
-            dispatch(resetAddEnquiryDetails);
+            dispatch(resetAddEnquiryDetails());
             clickCancel();
             // navigate("/")
-
         }
     }, [AddStudentMsg]);
 
