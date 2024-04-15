@@ -14,10 +14,7 @@ import { Tooltip } from '@mui/material';
 import FollowUpList from '../FollowUp/FollowUpList';
 
 const AddClass = () => {
-<<<<<<< HEAD
     const [componentName,setComponentName] = useState(<EnquiryList />)
-=======
->>>>>>> da76584cd5cab628e3dd551d6610101d995e4940
     const [pageHeader,setPageHeader] = useState('Enquiry List');
     const navigate = useNavigate();
     // const clickEnquiry = () => {
@@ -42,11 +39,7 @@ const AddClass = () => {
             navigate('/extended-sidebar/Student/AddEnquiry')
         }else if(value==="2"){
             setPageHeader('Follow Ups')
-<<<<<<< HEAD
             // navigate('/extended-sidebar/Student/FollowUpList')
-=======
-            // navigate('/extended-sidebar/Student/AddEnquiry')
->>>>>>> da76584cd5cab628e3dd551d6610101d995e4940
             setToggle(value)
             setComponentName(<FollowUpList />)
         }else if(value==="3"){
