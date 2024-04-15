@@ -4,8 +4,8 @@ import { ErrorDetail } from '../styled/ErrormessageStyled';
 
 const Dropdown = ({ ItemList, ClickItem, Label, DefaultValue, ErrorMessage = '', Placeholder = 'select option' }) => {
     return (<>
-        <Typography>{Label}</Typography>
-
+{/* 
+        <Typography>{Label}</Typography> */}
         <NativeSelect value={DefaultValue} 
         fullWidth variant="outlined"
          size="small" required

@@ -1,3 +1,4 @@
+import { element } from 'prop-types';
 import { Suspense, lazy } from 'react';
 import { Navigate } from 'react-router-dom';
 import SuspenseLoader from 'src/layouts/Components/SuspenseLoader';
@@ -19,6 +20,7 @@ const AddStaff = Loader(lazy(()=> import('src/components/AddStaff/AddStaff')))
 const Login = Loader(lazy(()=> import('src/components/Login/Login')))
 const StudentDetails = Loader(lazy(()=> import('src/components/Enquiry/StudentDetails')))
 const AddEnquiry = Loader(lazy(()=> import('src/components/Enquiry/AddEnquiry')))
+const FollowUpList = Loader(lazy(()=> import('src/components/FollowUp/FollowUpList')))
 const Homework = Loader(lazy(()=> import('src/components/Homework/Homework')))
 const ViewHomework = Loader(lazy(()=> import('src/components/Homework/ViewHomework')))
 const AddPhoto = Loader(lazy(()=> import('src/components/AddPhoto/AddPhoto')))
@@ -141,6 +143,10 @@ const studentRoutes = [
   {
     path: 'AddEnquiry/:Id',
     element: <AddEnquiry />
+  },
+  {
+    path: 'FollowUpList',
+    element: <FollowUpList />
   }
   
 ];

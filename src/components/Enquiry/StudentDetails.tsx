@@ -11,8 +11,11 @@ import ViewListIcon from '@mui/icons-material/ViewList';
 import RecentActorsIcon from '@mui/icons-material/RecentActors';
 import { useNavigate } from 'react-router'
 import { Tooltip } from '@mui/material';
+import FollowUpList from '../FollowUp/FollowUpList';
 
 const AddClass = () => {
+    const [componentName,setComponentName] = useState(<EnquiryList />)
+    const [pageHeader,setPageHeader] = useState('Enquiry List');
     const navigate = useNavigate();
     // const clickEnquiry = () => {
     //     navigate('/extended-sidebar/Student/AddEnquiry')
@@ -28,13 +31,19 @@ const AddClass = () => {
         value: string,) => {
         if(value==="1"){
             setToggle(value)
+            setPageHeader('Enquiry List')
             navigate('/extended-sidebar/Student/StudentDetails')
+            setComponentName(<EnquiryList />)
         } else if(value==="4"){
+
             navigate('/extended-sidebar/Student/AddEnquiry')
         }else if(value==="2"){
-            // navigate('/extended-sidebar/Student/AddEnquiry')
+            setPageHeader('Follow Ups')
+            // navigate('/extended-sidebar/Student/FollowUpList')
             setToggle(value)
+            setComponentName(<FollowUpList />)
         }else if(value==="3"){
+            setPageHeader('Admission List')
             // navigate('/extended-sidebar/Student/AddEnquiry')
             setToggle(value)
         }
@@ -45,10 +54,10 @@ const AddClass = () => {
                 <Grid container direction="column" alignItems="center" justifyContent="center">
                     <Grid container spacing={2}>
                         <Grid item xs={12} display={'flex'} justifyContent={'center'}>
-                            <PageHeader heading='Student Details' />
+                            <PageHeader heading={pageHeader} />
                         </Grid>
-                        <Grid item xs={12} sm={12} style={{ display: 'flex', justifyContent: 'flex-end', alignItems: 'center' }}>
-                        <ToggleButtonGroup
+                        <Grid item xs={12} sm={12} mr={2} style={{ display: 'flex', justifyContent: 'flex-end', alignItems: 'center'}}>
+                        <ToggleButtonGroup 
       color='primary'
       value={toggle}
       exclusive
@@ -65,7 +74,8 @@ const AddClass = () => {
                     </Grid>
                 </Grid>
             </Container>
-            <EnquiryList />
+        
+{componentName}
         </>
 
     )
