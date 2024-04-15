@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate, useParams } from 'react-router-dom';
 import { toast } from 'react-toastify';
+import SendIcon from '@mui/icons-material/Send';
 import { IAddEnquiryBody, IGetEnquiryDetailsBody } from "src/Interface/Enquiry/IEnquiry";
 import ButtonField from "src/libraries/Training/ButtonField";
 import CalendarField from "src/libraries/Training/CalendarField";
@@ -14,6 +15,7 @@ import { RootState } from "src/store";
 import { IsEmailValid, IsPhoneNoValid, calculateAge } from "../Common/util";
 import PageHeader from "src/libraries/heading/PageHeader";
 import { getCalendarFormat } from "../Common/utils1";
+import { ButtonPrimary } from "src/library/StyledComponents/CommonStyled";
 
 const AddEnquiry = () => {
     const { Id } = useParams();
@@ -334,7 +336,8 @@ const AddEnquiry = () => {
                                             ErrorMessage={StudentNameErrorMessage}
                                         />
                                     </Grid>
-                                    <Grid item xs={6} sm={6} sx={{ mt: 1.5 }} >
+                                    <Grid item xs={6} sm={6} sx={{ mt: 2.6 }} >
+                                        
                                         <Dropdown
                                             ItemList={Class}
                                             Label=""
@@ -435,10 +438,10 @@ const AddEnquiry = () => {
                                             sx={{
                                                 display: 'flex',
                                                 justifyContent: 'center',
-                                                gap: 6
+                                                gap: 3
                                             }}>
-                                            <ButtonField Label="Submit" ClickItem={clickSubmit} />
-                                            <ButtonField Label="Clear" ClickItem={clickCancel} />
+                                            <ButtonPrimary onClick={clickSubmit} >Submit  <SendIcon fontSize="small"/></ButtonPrimary>
+                                            <ButtonPrimary onClick={clickCancel} >Clear</ButtonPrimary>
                                         </Box>
                                     </Grid>
                                 </Grid>
