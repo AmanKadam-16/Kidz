@@ -6,8 +6,9 @@ import EditIcon from '@mui/icons-material/Edit';
 import { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { RootState } from 'src/store'
-import { getEnquiryList } from 'src/requests/Enquiry/RequestEnquiryList'
+import { getEnquiryDetails, getEnquiryList } from 'src/requests/Enquiry/RequestEnquiryList'
 import { useNavigate } from 'react-router';
+import { IGetEnquiryDetailsBody } from 'src/Interface/Enquiry/IEnquiry';
 
 const EnquiryList = () => {
   const dispatch = useDispatch();
@@ -46,7 +47,11 @@ const EnquiryList = () => {
 
   const clickItem = (value) => {
     if (value.Action === "Edit") {
-      navigate("../AddEnquiry/" + value.Id)
+      const GetEnquiryDetailsBody: IGetEnquiryDetailsBody = {
+        ID: Number( value.Id)
+    }
+    dispatch(getEnquiryDetails(GetEnquiryDetailsBody))
+      navigate("../AddEnquiry/")
   }
   }
 

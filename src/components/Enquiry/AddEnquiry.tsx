@@ -10,7 +10,7 @@ import CalendarField from "src/libraries/Training/CalendarField";
 import Dropdown from "src/libraries/Training/Dropdown";
 import InputField from "src/libraries/Training/InputField";
 import RadioList from "src/libraries/Training/RadioList";
-import { AddStudentDetails, getClass, getEnquiryDetails, resetAddEnquiryDetails } from "src/requests/Enquiry/RequestEnquiryList";
+import { AddStudentDetails, getClass, getEnquiryDetails, resetAddEnquiryDetails, resetEnquiryDetails } from "src/requests/Enquiry/RequestEnquiryList";
 import { RootState } from "src/store";
 import { IsEmailValid, IsPhoneNoValid, calculateAge } from "../Common/util";
 import PageHeader from "src/libraries/heading/PageHeader";
@@ -18,7 +18,7 @@ import { getCalendarFormat } from "../Common/utils1";
 import { ButtonPrimary } from "src/library/StyledComponents/CommonStyled";
 
 const AddEnquiry = () => {
-    const { Id } = useParams();
+    // const { Id } = useParams();
     const dispatch = useDispatch();
     const navigate = useNavigate();
     const [ClassID, setClassID] = useState('0')
@@ -74,15 +74,15 @@ const AddEnquiry = () => {
             setEmailId(EnquiryDetails.EmailId)
         }
     }, [EnquiryDetails])
-    useEffect(() => {
-        if (Id !== undefined) {
-            const GetEnquiryDetailsBody: IGetEnquiryDetailsBody = {
-                ID: Number(Id)
-            }
-            dispatch(getEnquiryDetails(GetEnquiryDetailsBody))
-        }
+    // useEffect(() => {
+    //     if (Id !== undefined) {
+    //         const GetEnquiryDetailsBody: IGetEnquiryDetailsBody = {
+    //             ID: Number(Id)
+    //         }
+    //         dispatch(getEnquiryDetails(GetEnquiryDetailsBody))
+    //     }
 
-    }, [Id, dispatch]);
+    // }, [Id, dispatch]);
     useEffect(() => {
         dispatch(getClass())
         clickCancel()
@@ -93,6 +93,7 @@ const AddEnquiry = () => {
             toast.success(AddStudentMsg);
             dispatch(resetAddEnquiryDetails());
             clickCancel();
+            dispatch(resetEnquiryDetails())
             // navigate("/")
 
         }
@@ -276,12 +277,12 @@ const AddEnquiry = () => {
         return returnVal
     }
 
-
+console.log(EnquiryDetails)
 
     const clickSubmit = () => {
         if (IsFormValid()) {
             const AddStudentBody: IAddEnquiryBody = {
-                ID: Id == undefined ? 0 : Number(Id),
+                ID: EnquiryDetails === null ? 0 : Number(EnquiryDetails.ID),
                 ClassId: Number(ClassID),
                 StudentName: StudentName,
                 Birthdate: BirthDate,

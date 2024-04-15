@@ -40,6 +40,10 @@ const EnquirySlice = createSlice({
             state.Loading = false;
             state.EnquiryDetails = action.payload;
         },
+        resetEnquiryDetails(state) {
+            state.Loading = false;
+            state.EnquiryDetails = null;
+        },
     }
 });
 
@@ -55,6 +59,12 @@ export const resetAddEnquiryDetails =
     (): AppThunk =>
         async (dispatch) => {
             dispatch(EnquirySlice.actions.resetAddEnquiryDetails());
+        };
+
+export const resetEnquiryDetails =
+    (): AppThunk =>
+        async (dispatch) => {
+            dispatch(EnquirySlice.actions.resetEnquiryDetails());
         };
 
 export const getEnquiryList =
