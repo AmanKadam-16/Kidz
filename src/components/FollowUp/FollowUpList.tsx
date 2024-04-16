@@ -67,7 +67,7 @@ const clickItem = (value) => {
                 ClickItem={clickItem}
               />
             </div>
-            <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginTop: '30px' }}>
+            <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginTop: '16px' }}>
               <Typography variant="body2">FollowUp List {startIndex}-{endIndex} of {totalCount} FollowUps</Typography>
               <Box sx={{ display: 'flex', gap: 1 }}>
                 <Button onClick={handlePrevPage} variant="outlined" disabled={pageIndex === 0}  style={{color:'#878686'}}>
