@@ -48,7 +48,7 @@ console.log(historyList)
                 </Grid>
             </Grid>
         </Container>
-    );
+     );
 };
 
 export default FollowUpCountHistory;
