@@ -34,11 +34,15 @@ const EnquiryList = () => {
 
   const paginatedList = enquiryList.slice(pageIndex * pageSize, (pageIndex + 1) * pageSize)
 
-  const HeaderList = ["Name", "Class", "BirthDate", "Gender", "Phone", "Society", "Enquiry Date-Time", "Edit","Follow Up"]
-  const IconList = [{ Id: 1, Icon:  <Tooltip title="Edit Details"><IconButton><EditIcon />
-  </IconButton></Tooltip> , Action: 'Edit',Value:"1" },
-                    { Id: 2, Icon:<Tooltip title="Take FollowUp"><IconButton><CallIcon />
-                    </IconButton></Tooltip> , Action: 'FollowUp',Value:"2"}]
+  const HeaderList = ["Name", "Class", "BirthDate", "Gender", "Phone", "Society", "Enquiry Date-Time", "Edit", "Follow Up"]
+  const IconList = [{
+    Id: 1, Icon: <Tooltip title="Edit Details"><IconButton><EditIcon />
+    </IconButton></Tooltip>, Action: 'Edit', Value: "1"
+  },
+  {
+    Id: 2, Icon: <Tooltip title="Take FollowUp"><IconButton><CallIcon />
+    </IconButton></Tooltip>, Action: 'FollowUp', Value: "2"
+  }]
 
   const totalCount = enquiryList.length
   const startIndex = pageIndex * pageSize + 1
@@ -47,17 +51,17 @@ const EnquiryList = () => {
   const clickItem = (value) => {
     if (value.Action === "Edit") {
       navigate("../AddEnquiry/" + value.Id)
-  } else     if (value.Action === "FollowUp") {
-    navigate("../FollowUpForm/" + value.Id)
-}
+    } else if (value.Action === "FollowUp") {
+      navigate("../FollowUpForm/" + value.Id)
+    }
   }
 
   return (
     <Container>
-      <Grid container spacing={2} >
-       {/* <Grid item xs={12}> sx={{ width: '100%', overflow: 'hidden' }}
-          <Typography variant="h3" gutterBottom>Enquiry List</Typography> 
-        </Grid> */}
+      <Grid container spacing={2} sx={{ width: '100%', overflow: 'hidden' }} >
+        <Grid item xs={12}>
+          {/* <Typography variant="h3" gutterBottom>Enquiry List</Typography> */}
+        </Grid>
         <Grid item xs={12} sx={{ display: 'flex', flexDirection: 'column', flexGrow: 1, position: 'relative' }}>
           <div style={{ flexGrow: 1, overflow: 'auto' }}>
             <DynamicList
@@ -70,10 +74,10 @@ const EnquiryList = () => {
           <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginTop: '16px' }}>
             <Typography variant="body2">Enquiry List {startIndex}-{endIndex} of {totalCount} Enquiries</Typography>
             <Box sx={{ display: 'flex', gap: 1 }}>
-              <Button onClick={handlePrevPage} variant="outlined" disabled={pageIndex === 0}  style={{color:'#878686'}}>
+              <Button onClick={handlePrevPage} variant="outlined" disabled={pageIndex === 0} style={{ color: '#878686' }}>
                 Previous Page
               </Button>
-              <Button onClick={handleNextPage} variant="outlined" disabled={(pageIndex + 1) * pageSize >= totalCount} style={{color:'#878686'}}>
+              <Button onClick={handleNextPage} variant="outlined" disabled={(pageIndex + 1) * pageSize >= totalCount} style={{ color: '#878686' }}>
                 Next Page
               </Button>
             </Box>
