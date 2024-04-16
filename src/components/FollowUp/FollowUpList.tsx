@@ -55,7 +55,7 @@ const clickItem = (value) => {
     return (
         <Container>
             
-        <Grid container spacing={2}mt={1} sx={{ width: '100%', overflow: 'hidden' }} >
+        <Grid container spacing={2} sx={{ width: '100%', overflow: 'hidden' }} >
 
           <Grid item xs={12} sx={{ display: 'flex', flexDirection: 'column', flexGrow: 1, position: 'relative' }}>
 
