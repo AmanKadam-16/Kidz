@@ -55,7 +55,10 @@ const clickItem = (value) => {
     return (
         <Container>
             
-        <Grid container spacing={2} sx={{ width: '100%', overflow: 'hidden' }} >
+        <Grid container spacing={2}  sx={{ width: '100%', overflow: 'hidden' }} >
+        <Grid item xs={12}>
+          {/* <Typography variant="h3" gutterBottom>Enquiry List</Typography> */}
+        </Grid>
 
           <Grid item xs={12} sx={{ display: 'flex', flexDirection: 'column', flexGrow: 1, position: 'relative' }}>
 
