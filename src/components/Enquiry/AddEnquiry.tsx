@@ -92,7 +92,7 @@ const AddEnquiry = () => {
         if (AddStudentMsg !== '') {
             // toast.success(AddStudentMsg);
             if (AddStudentMsg === '0'){
-                toast.success('Failed to Add Enquiry.');
+                toast.error('Failed to Add Enquiry.');
             } else if (AddStudentMsg === '1'){
                 toast.success('Enquiry Added Successfully.');
                 clickCancel();
@@ -100,7 +100,7 @@ const AddEnquiry = () => {
                 toast.success('Enquiry Details Updatd Successfully.');
                 clickCancel();
             } else if (AddStudentMsg === '3'){
-                toast.success('Email Id Already Exists.');
+                toast.error('Email Id Already Exists.');
             } 
             dispatch(resetAddEnquiryDetails());
 
