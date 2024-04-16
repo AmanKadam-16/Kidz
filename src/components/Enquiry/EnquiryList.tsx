@@ -6,9 +6,8 @@ import EditIcon from '@mui/icons-material/Edit';
 import { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { RootState } from 'src/store'
-import { getEnquiryDetails, getEnquiryList } from 'src/requests/Enquiry/RequestEnquiryList'
+import { getEnquiryList } from 'src/requests/Enquiry/RequestEnquiryList'
 import { useNavigate } from 'react-router';
-import { IGetEnquiryDetailsBody } from 'src/Interface/Enquiry/IEnquiry';
 
 const EnquiryList = () => {
   const dispatch = useDispatch();
@@ -47,18 +46,16 @@ const EnquiryList = () => {
 
   const clickItem = (value) => {
     if (value.Action === "Edit") {
-      const GetEnquiryDetailsBody: IGetEnquiryDetailsBody = {
-        ID: Number( value.Id)
-    }
-    dispatch(getEnquiryDetails(GetEnquiryDetailsBody))
-      navigate("../AddEnquiry/")
+      navigate("../AddEnquiry/" + value.Id)
   }
   }
 
   return (
     <Container>
-      <Grid container spacing={2}mt={1} sx={{ width: '100%', overflow: 'hidden' }}>
-
+      <Grid container spacing={2} sx={{ width: '100%', overflow: 'hidden' }}>
+        <Grid item xs={12}>
+          <Typography variant="h3" gutterBottom>Enquiry List</Typography>
+        </Grid>
         <Grid item xs={12} sx={{ display: 'flex', flexDirection: 'column', flexGrow: 1, position: 'relative' }}>
           <div style={{ flexGrow: 1, overflow: 'auto' }}>
             <DynamicList

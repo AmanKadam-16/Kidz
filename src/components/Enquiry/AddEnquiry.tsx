@@ -3,22 +3,20 @@ import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate, useParams } from 'react-router-dom';
 import { toast } from 'react-toastify';
-import SendIcon from '@mui/icons-material/Send';
 import { IAddEnquiryBody, IGetEnquiryDetailsBody } from "src/Interface/Enquiry/IEnquiry";
 import ButtonField from "src/libraries/Training/ButtonField";
 import CalendarField from "src/libraries/Training/CalendarField";
 import Dropdown from "src/libraries/Training/Dropdown";
 import InputField from "src/libraries/Training/InputField";
 import RadioList from "src/libraries/Training/RadioList";
-import { AddStudentDetails, getClass, getEnquiryDetails, resetAddEnquiryDetails, resetEnquiryDetails } from "src/requests/Enquiry/RequestEnquiryList";
+import { AddStudentDetails, getClass, getEnquiryDetails, resetAddEnquiryDetails } from "src/requests/Enquiry/RequestEnquiryList";
 import { RootState } from "src/store";
 import { IsEmailValid, IsPhoneNoValid, calculateAge } from "../Common/util";
 import PageHeader from "src/libraries/heading/PageHeader";
 import { getCalendarFormat } from "../Common/utils1";
-import { ButtonPrimary } from "src/library/StyledComponents/CommonStyled";
 
 const AddEnquiry = () => {
-    // const { Id } = useParams();
+    const { Id } = useParams();
     const dispatch = useDispatch();
     const navigate = useNavigate();
     const [ClassID, setClassID] = useState('0')
@@ -74,15 +72,15 @@ const AddEnquiry = () => {
             setEmailId(EnquiryDetails.EmailId)
         }
     }, [EnquiryDetails])
-    // useEffect(() => {
-    //     if (Id !== undefined) {
-    //         const GetEnquiryDetailsBody: IGetEnquiryDetailsBody = {
-    //             ID: Number(Id)
-    //         }
-    //         dispatch(getEnquiryDetails(GetEnquiryDetailsBody))
-    //     }
+    useEffect(() => {
+        if (Id !== undefined) {
+            const GetEnquiryDetailsBody: IGetEnquiryDetailsBody = {
+                ID: Number(Id)
+            }
+            dispatch(getEnquiryDetails(GetEnquiryDetailsBody))
+        }
 
-    // }, [Id, dispatch]);
+    }, [Id, dispatch]);
     useEffect(() => {
         dispatch(getClass())
         clickCancel()
@@ -93,7 +91,6 @@ const AddEnquiry = () => {
             toast.success(AddStudentMsg);
             dispatch(resetAddEnquiryDetails());
             clickCancel();
-            dispatch(resetEnquiryDetails())
             // navigate("/")
 
         }
@@ -277,12 +274,12 @@ const AddEnquiry = () => {
         return returnVal
     }
 
-console.log(EnquiryDetails)
+
 
     const clickSubmit = () => {
         if (IsFormValid()) {
             const AddStudentBody: IAddEnquiryBody = {
-                ID: EnquiryDetails === null ? 0 : Number(EnquiryDetails.ID),
+                ID: Id == undefined ? 0 : Number(Id),
                 ClassId: Number(ClassID),
                 StudentName: StudentName,
                 Birthdate: BirthDate,
@@ -314,7 +311,7 @@ console.log(EnquiryDetails)
       display: 'flex',
       justifyContent: 'center',
       alignItems: 'center',
-      height: '100%', // Ensure the container has a defined height
+      height: '100%', 
     }}
   >
    <CircularProgress />
@@ -337,8 +334,7 @@ console.log(EnquiryDetails)
                                             ErrorMessage={StudentNameErrorMessage}
                                         />
                                     </Grid>
-                                    <Grid item xs={6} sm={6} sx={{ mt: 2.6 }} >
-                                        
+                                    <Grid item xs={6} sm={6} sx={{ mt: 1.5 }} >
                                         <Dropdown
                                             ItemList={Class}
                                             Label=""
@@ -439,10 +435,10 @@ console.log(EnquiryDetails)
                                             sx={{
                                                 display: 'flex',
                                                 justifyContent: 'center',
-                                                gap: 3
+                                                gap: 6
                                             }}>
-                                            <ButtonPrimary onClick={clickSubmit} >Submit  <SendIcon fontSize="small"/></ButtonPrimary>
-                                            <ButtonPrimary onClick={clickCancel} >Clear</ButtonPrimary>
+                                            <ButtonField Label="Submit" ClickItem={clickSubmit} />
+                                            <ButtonField Label="Clear" ClickItem={clickCancel} />
                                         </Box>
                                     </Grid>
                                 </Grid>
