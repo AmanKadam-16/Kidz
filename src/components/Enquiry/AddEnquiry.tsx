@@ -163,6 +163,13 @@ const AddEnquiry = () => {
     }
 
 
+    const isNameValid = (name) => {
+        // Regular expression to check if the input contains only alphabetic characters
+        const nameRegex = /^[a-zA-Z\s]+$/;
+        return nameRegex.test(name);
+      };
+
+
     const clickAge = () => {
 
     };
@@ -172,8 +179,13 @@ const AddEnquiry = () => {
         setGenderErrorMessage("");
     }
     const clickFatherName = (value) => {
+        if (value.trim() === "") {
+            setFatherName("");
+            setFatherNameErrorMessage("");
+          } else if (isNameValid(value)) {
         setFatherName(value);
         setFatherNameErrorMessage("");
+        }
     }
 
     const clickFatherPhoneNo = (value) => {
@@ -183,8 +195,13 @@ const AddEnquiry = () => {
         setFatherPhoneNoErrorMessage("");
     }
     const clickMotherName = (value) => {
+        if (value.trim() === "") {
+            setMotherName("");
+            setMotherNameErrorMessage("");
+          } else if (isNameValid(value)) 
         setMotherName(value);
         setMotherNameErrorMessage("");
+        
     }
     const clickMotherPhoneNo = (value) => {
         // true if its a number, false if not & cannot enter more than 10 digit

@@ -45,7 +45,7 @@ const DynamicList = ({
     <TableContainer component={Paper}>
       <Table sx={{ minWidth: 650 }} aria-label="simple table">
         <TableHead>
-          <TableRow sx={{ backgroundColor: '#4dd0e1' }}>
+          <TableRow sx={{ backgroundColor: '#90caf9' }}>
             {HeaderList.map((item, i) => {
               return (
                 <TableCell align="center" key={i}>
