@@ -1,4 +1,4 @@
-import { Checkbox, Grow } from '@mui/material';
+import { Checkbox, Grow, Typography } from '@mui/material';
 import Paper from '@mui/material/Paper';
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
@@ -48,8 +48,10 @@ const DynamicList = ({
           <TableRow sx={{ backgroundColor: '#90caf9' }}>
             {HeaderList.map((item, i) => {
               return (
-                <TableCell align="center" key={i}>
-                  <b>{item}</b>
+                <TableCell align="center" key={i}  sx={{ color: 'grey'}} >
+                               <Typography variant="body1" fontWeight="bold">
+                    <b>{item}</b>
+                  </Typography>
                   {IsSelect == 2 && i == 0 && (
                     <>
                       <br></br>
