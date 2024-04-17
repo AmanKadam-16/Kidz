@@ -12,6 +12,7 @@ import RecentActorsIcon from '@mui/icons-material/RecentActors';
 import { useNavigate } from 'react-router'
 import { Tooltip } from '@mui/material';
 import FollowUpList from '../FollowUp/FollowUpList';
+import AdmissionList from './AdmissionList';
 
 const AddClass = () => {
     const [componentName,setComponentName] = useState(<EnquiryList />)
@@ -44,7 +45,7 @@ const AddClass = () => {
             setComponentName(<FollowUpList />)
         }else if(value==="3"){
             setPageHeader('Admission List')
-            // navigate('/extended-sidebar/Student/AddEnquiry')
+            setComponentName(<AdmissionList />)
             setToggle(value)
         }
     };
