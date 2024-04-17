@@ -350,14 +350,14 @@ const AddEnquiry = () => {
      </Box>
 ) : (
                     <Card variant="outlined">
-                        <Box p={3}>
+                        <Box p={1}>
                             {/* <Typography variant="h2" gutterBottom align="center">
                                 Enquiry Form
                             </Typography>
                             <Divider /> */}
 
                             <form>
-                                <Grid container spacing={2} >
+                                <Grid container spacing={1} >
                                     <Grid item xs={6} sm={6}>
                                         <InputField
                                             Item={StudentName}
@@ -376,7 +376,7 @@ const AddEnquiry = () => {
                                             ErrorMessage={ClassErrorMessage}
                                         />
                                     </Grid>
-                                    <Grid item xs={6} sm={6}>
+                                    <Grid item xs={6} sm={6}  sx={{ mt:0.5 }}>
                                         <CalendarField
                                             Item={BirthDate}
                                             Label="Birth Date *"
@@ -386,7 +386,7 @@ const AddEnquiry = () => {
 
                                     </Grid>
 
-                                    <Grid item xs={6} sm={6}>
+                                    <Grid item xs={6} sm={6}  sx={{ mt:0.5 }}>
                                         <RadioList
                                             ItemList={GenderList}
                                             Label="Gender *"
