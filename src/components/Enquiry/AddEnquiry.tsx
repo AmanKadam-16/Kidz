@@ -1,6 +1,7 @@
 import { Box, Card, Container, Grid, Typography, Divider, CircularProgress } from "@mui/material";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import PageHeader from 'src/library/heading/pageHeader'
 import SendIcon from '@mui/icons-material/Send';
 import { useNavigate, useParams } from 'react-router-dom';
 import { toast } from 'react-toastify';
@@ -13,7 +14,7 @@ import RadioList from "src/libraries/Training/RadioList";
 import { AddStudentDetails, getClass, getEnquiryDetails, resetAddEnquiryDetails } from "src/requests/Enquiry/RequestEnquiryList";
 import { RootState } from "src/store";
 import { IsEmailValid, IsPhoneNoValid, calculateAge } from "../Common/util";
-import PageHeader from "src/libraries/heading/PageHeader";
+// import PageHeader from "src/libraries/heading/PageHeader";
 import { getCalendarFormat } from "../Common/utils1";
 import { ButtonPrimary } from "src/library/StyledComponents/CommonStyled";
 
@@ -334,8 +335,8 @@ const AddEnquiry = () => {
 
     return (
         <>
-
-            <Container maxWidth="md" sx={{ py: 2 }}>
+<PageHeader heading={'Enquiry Form'} />
+            <Container  sx={{ py: 2}} >
             {Loading ? (
   <Box  p={3} mt={12}
     sx={{
@@ -350,13 +351,13 @@ const AddEnquiry = () => {
 ) : (
                     <Card variant="outlined">
                         <Box p={3}>
-                            <Typography variant="h2" gutterBottom align="center">
+                            {/* <Typography variant="h2" gutterBottom align="center">
                                 Enquiry Form
                             </Typography>
-                            <Divider />
+                            <Divider /> */}
 
                             <form>
-                                <Grid container spacing={2} sx={{ mt: 2 }} >
+                                <Grid container spacing={2} >
                                     <Grid item xs={6} sm={6}>
                                         <InputField
                                             Item={StudentName}
