@@ -100,7 +100,7 @@ const AddEnquiry = () => {
                 toast.success('Enquiry Details Updated Successfully.');
                 clickCancel();
             } else if (AddStudentMsg === '3'){
-                toast.error('Email Id Already Exists.');
+                toast.error('An Enquiry with the email already exists');
             } 
             dispatch(resetAddEnquiryDetails());
 
