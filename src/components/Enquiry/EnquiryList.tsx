@@ -34,7 +34,7 @@ const EnquiryList = () => {
 
   const paginatedList = enquiryList.slice(pageIndex * pageSize, (pageIndex + 1) * pageSize)
 
-  const HeaderList = ["Name", "Class", "BirthDate", "Gender", "Phone", "Society", "Enquiry Date-Time", "Edit", "Follow Up"]
+  const HeaderList = ["Name", "Class", "Birth Date", "Gender", "Phone", "Society", "Enquiry Date-Time", "Edit", "Follow Up"]
   const IconList = [{
     Id: 1, Icon: <Tooltip title="Edit Details"><IconButton><EditIcon />
     </IconButton></Tooltip>, Action: 'Edit', Value: "1"

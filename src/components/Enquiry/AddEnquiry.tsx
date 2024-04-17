@@ -97,10 +97,10 @@ const AddEnquiry = () => {
                 toast.success('Enquiry Added Successfully.');
                 clickCancel();
             } else if (AddStudentMsg === '2'){
-                toast.success('Enquiry Details Updated Successfully.');
+                toast.success('Enquiry Details Updatd Successfully.');
                 clickCancel();
             } else if (AddStudentMsg === '3'){
-                toast.error('An Enquiry with the email already exists');
+                toast.error('Email Id Already Exists.');
             } 
             dispatch(resetAddEnquiryDetails());
 
@@ -360,7 +360,7 @@ const AddEnquiry = () => {
                                     <Grid item xs={6} sm={6}>
                                         <InputField
                                             Item={StudentName}
-                                            Label="Student Name"
+                                            Label="Student's Name"
                                             ClickItem={clickStudentName}
                                             ErrorMessage={StudentNameErrorMessage}
                                         />
@@ -414,7 +414,7 @@ const AddEnquiry = () => {
                                     <Grid item xs={6} sm={6}>
                                         <InputField
                                             Item={FatherName}
-                                            Label="Father Name"
+                                            Label="Father's Name"
                                             ClickItem={clickFatherName}
                                             ErrorMessage={FatherNameErrorMessage}
                                         />
@@ -431,7 +431,7 @@ const AddEnquiry = () => {
                                     <Grid item xs={6} sm={6}>
                                         <InputField
                                             Item={MotherName}
-                                            Label="Mother Name"
+                                            Label="Mother's Name"
                                             ClickItem={clickMotherName}
                                             ErrorMessage={MotherNameErrorMessage}
                                         />

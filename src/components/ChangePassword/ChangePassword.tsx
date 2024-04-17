@@ -9,6 +9,7 @@ import { IChangePasswordBody } from 'src/Interface/ChangePassword';
 import { toast } from 'react-toastify';
 import ErrorMessageForm from 'src/library/ErrorMessage/ErrorMessageForm';
 import { ButtonPrimary } from 'src/library/StyledComponents/CommonStyled';
+import SendIcon from '@mui/icons-material/Send';
 
 function ChangePassword() {
     const dispatch = useDispatch();
@@ -97,7 +98,7 @@ function ChangePassword() {
                     <br></br>
                    
                     <ButtonPrimary onClick={Submit} variant='contained'>
-                        Submit
+                        Submit&nbsp;<SendIcon fontSize="small"/>
                     </ButtonPrimary>
                 </Card>
                     </Grid>
