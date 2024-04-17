@@ -98,7 +98,7 @@ const AddEnquiry = () => {
                 toast.success('Enquiry Added Successfully.');
                 clickCancel();
             } else if (AddStudentMsg === '2'){
-                toast.success('Enquiry Details Updatd Successfully.');
+                toast.success('Enquiry Details Updated Successfully.');
                 clickCancel();
             } else if (AddStudentMsg === '3'){
                 toast.error('Email Id Already Exists.');
