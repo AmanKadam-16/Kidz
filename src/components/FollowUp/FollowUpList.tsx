@@ -87,7 +87,7 @@ dispatch(DeleteFollowUpDetails({StudentId:value.Id}))
             <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginTop: '16px' }}>
               <Typography variant="body2">FollowUp List {startIndex}-{endIndex} of {totalCount} FollowUps</Typography>
               <Box sx={{ display: 'flex', gap: 1 }}>
-                <Button onClick={handlePrevPage} variant="outlined" disabled={pageIndex === 0}  style={{color:'#878686'}}>
+                <Button onClick={handlePrevPage} variant="outlined" disabled={pageIndex === 0}  style={{color:'#878686', minWidth: '120px'}}>
                   Previous Page
                 </Button>
                 <Button onClick={handleNextPage} variant="outlined" disabled={(pageIndex + 1) * pageSize >= totalCount} style={{color:'#878686'}}>
