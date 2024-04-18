@@ -126,7 +126,7 @@ export const GetFollowUpHistoryList =
                     Text1: Item.FollowUpCount,
                     Text2: Item.Status,
                     Text3: Item.Reminder,
-                    Text4: Item.Comment,
+                    Text4: <Tooltip title={Item.Comment} placement="right"><p>{Item.Comment.slice(0, 20)}...</p></Tooltip>,
                     Text5: Item.SocietyName,
                     Text6: Item.FollowUpDate
                 }
