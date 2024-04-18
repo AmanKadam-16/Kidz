@@ -36,7 +36,7 @@ const EnquiryList = () => {
 
   const HeaderList = ["Name", "Class", "Birth Date", "Gender", "Phone", "Society", "Enquiry Date-Time", "Edit", "Follow Up"]
   const IconList = [{
-    Id: 1, Icon: <Tooltip title="Edit Details"><IconButton><EditIcon />
+    Id: 1, Icon: <Tooltip title="Edit Details"><IconButton><EditIcon  sx={{ color: '#ffc107' }} />
     </IconButton></Tooltip>, Action: 'Edit', Value: "1"
   },
   {

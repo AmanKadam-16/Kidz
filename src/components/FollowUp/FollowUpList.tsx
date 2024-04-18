@@ -50,7 +50,7 @@ const FollowUpList = () => {
     const IconList = [
         { Id: 1, Icon:<IconButton> <CallIcon /></IconButton>, Action: 'FollowUp' },
         { Id: 1, Icon: <IconButton><LinkIcon /></IconButton>, Action: 'Admission Link' },
-        { Id: 1, Icon: <IconButton><DeleteIcon /></IconButton>, Action: 'Remove' }
+        { Id: 1, Icon: <IconButton><DeleteIcon  sx={{ color: '#ff1943' }}  /></IconButton>, Action: 'Remove' }
     ];
 
     const totalCount = followUpList.length;
