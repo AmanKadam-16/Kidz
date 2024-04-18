@@ -40,7 +40,7 @@ const EnquiryList = () => {
     </IconButton></Tooltip>, Action: 'Edit', Value: "1"
   },
   {
-    Id: 2, Icon: <Tooltip title="Take FollowUp"><IconButton><CallIcon />
+    Id: 2, Icon: <Tooltip title="Take FollowUp"><IconButton><CallIcon sx={{ color: "green" }} />
     </IconButton></Tooltip>, Action: 'FollowUp', Value: "2"
   }]
 

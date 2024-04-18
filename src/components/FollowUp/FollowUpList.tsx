@@ -48,7 +48,7 @@ const FollowUpList = () => {
 
     const HeaderList = ["Name", "FollowUp Count", "Status", "Reminder", "Comment", "Society", "FollowUp Date-Time", "Follow Up","Admission Link","Remove"];
     const IconList = [
-        { Id: 1, Icon:<IconButton> <CallIcon /></IconButton>, Action: 'FollowUp' },
+        { Id: 1, Icon:<IconButton> <CallIcon sx={{ color: "green" }} /></IconButton>, Action: 'FollowUp' },
         { Id: 1, Icon: <IconButton><LinkIcon /></IconButton>, Action: 'Admission Link' },
         { Id: 1, Icon: <IconButton><DeleteIcon  sx={{ color: '#ff1943' }}  /></IconButton>, Action: 'Remove' }
     ];
