@@ -2,7 +2,7 @@
 import { Box, Card, Checkbox, Container, Divider, FormControlLabel, FormGroup, Grid, Switch, Typography } from "@mui/material"
 import { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
-import { IGetEnquiryDetailsBody } from "src/Interface/Enquiry/IEnquiry"
+import { IAddEnquiryBody, IGetEnquiryDetailsBody } from "src/Interface/Enquiry/IEnquiry"
 import { IAddFollowUpBody } from "src/Interface/FollowUp/IFollowUp"
 import ButtonField from "src/libraries/Training/ButtonField"
 import CalendarField from "src/libraries/Training/CalendarField"
@@ -11,7 +11,7 @@ import InputField from "src/libraries/Training/InputField"
 import RadioList from "src/libraries/Training/RadioList"
 import SendIcon from '@mui/icons-material/Send';
 import PageHeader from 'src/library/heading/pageHeader'
-import { getClass } from "src/requests/Enquiry/RequestEnquiryList"
+import { AddStudentDetails, getClass, resetAddEnquiryDetails } from "src/requests/Enquiry/RequestEnquiryList"
 import { getEnquiryDetails } from "src/requests/Enquiry/RequestEnquiryList"
 import { RootState, useDispatch, useSelector } from 'src/store'
 import { calculateAge, getCalendarFormat } from "../Common/utils1"
@@ -19,6 +19,7 @@ import { AddFollowUpDetails, GetFollowUpHistoryList, GetStatus, resetAddFollowUp
 import { toast } from "react-toastify"
 import FollowUpCountHistory from "./FollowUpCountHistory"
 import { ButtonPrimary } from "src/library/StyledComponents/CommonStyled"
+
 
 
 const FollowUp = () => {
@@ -77,6 +78,7 @@ const FollowUp = () => {
 
     const Class = useSelector((state: RootState) => state.Enquiry.Class);
     const EnquiryDetails = useSelector((state: RootState) => state.Enquiry.EnquiryDetails);
+    const FollowUpdatedMsg = useSelector((state: RootState) => state.Enquiry.AddEnquiryMsg)
     console.log(EnquiryDetails)
     const Status = useSelector((state: RootState) => state.FollowUp.Status);
     const AddFollowUpMsg = useSelector((state: RootState) => state.FollowUp.AddFollowUpMsg)
@@ -110,11 +112,20 @@ const FollowUp = () => {
 
     useEffect(() => {
         if (AddFollowUpMsg !== '') {
+            if (FollowUpdatedMsg !==''){
+                toast.success('FollowUp Taken Successfully with some Updates.');
+                dispatch(resetAddFollowUpMsg())
+                dispatch(resetAddEnquiryDetails());
+                clickCancel();
+                dispatch(GetFollowUpHistoryList({ StudentId: Number(Id) }));
+            } 
+            else {
             toast.success(AddFollowUpMsg);
             dispatch(resetAddFollowUpMsg())
             clickCancel();
             dispatch(GetFollowUpHistoryList({ StudentId: Number(Id) }));
         }
+    }
     }, [AddFollowUpMsg])
     // console.log(Status);
 
@@ -237,6 +248,17 @@ const FollowUp = () => {
             Comment: Comment,
 
         }
+        const AddStudentBody: IAddEnquiryBody = {
+            ID: Number(Id),
+            StudentName: StudentName,
+            ClassId: Number(ClassID),
+            FatherName: FatherName,
+            FatherPhoneNo: FatherPhoneNo,
+            MotherName: MotherName,
+            MotherPhoneNo: MotherPhoneNo,
+            EmailId: EmailId.trim(), 
+        }
+        dispatch(AddStudentDetails(AddStudentBody))
         dispatch(AddFollowUpDetails(AddFollowUpBody))
         dispatch(GetFollowUpHistoryList({ StudentId: Number(Id) }));
 
