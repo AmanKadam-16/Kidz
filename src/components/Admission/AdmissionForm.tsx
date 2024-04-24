@@ -94,14 +94,12 @@ const AdmissionForm = () => {
             setStudentAddress(EnquiryDetails.StudentAddress)
             setSocietyName(EnquiryDetails.SocietyName)
             setEmailId(EnquiryDetails.EmailId)
-            if (EnquiryDetails.PhotoFileName !== '' && EnquiryDetails.PhotoFilePath !== '' &&
-                EnquiryDetails.ReceiptFileName !== '' && EnquiryDetails.ReceiptFilePath !== ''
-            ) {
+
                 setPhotoFileName(EnquiryDetails.PhotoFileName)
                 setPhotoFilePath(EnquiryDetails.PhotoFilePath)
                 setReceiptFileName(EnquiryDetails.ReceiptFileName)
                 setReceiptFilePath(EnquiryDetails.ReceiptFilePath)
-            }
+            
         }
     }, [EnquiryDetails])
     console.log(EnquiryDetails)
