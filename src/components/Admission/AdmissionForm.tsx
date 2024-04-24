@@ -568,7 +568,7 @@ const AdmissionForm = () => {
                                              </Button> */}
                                         <Box component="section" sx={{ p: 1 }}>
                                             <input type="file" accept=".png,.jpg"
-                                                onChange={handleReceiptFileChange} defaultValue={ReceiptFileName} required />
+                                                onChange={handleReceiptFileChange}  required />
                                         </Box>
                                         <ErrorDetail>{ReceiptFileErrorMessage}</ErrorDetail>
                                     </Grid>
@@ -587,7 +587,7 @@ const AdmissionForm = () => {
                                              </Button> */}
                                         <Box component="section" sx={{ p: 1 }}>
                                             <input type="file" accept=".png,.jpg"
-                                                onChange={handlePhotoFileChange} defaultValue={PhotoFileName} required />
+                                                onChange={handlePhotoFileChange}  required />
                                         </Box>
                                         <ErrorDetail>{PhotoFileErrorMessage}</ErrorDetail>
 
