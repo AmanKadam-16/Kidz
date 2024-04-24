@@ -8,7 +8,7 @@ import { useNavigate, useParams } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import { IAddEnquiryBody, IGetEnquiryDetailsBody } from "src/Interface/Enquiry/IEnquiry";
 import ButtonField from "src/libraries/Training/ButtonField";
-import CalendarField from "src/libraries/Training/CalendarField"; 
+import CalendarField from "src/libraries/Training/CalendarField";
 import Dropdown from "src/libraries/Training/Dropdown";
 import InputField from "src/libraries/Training/InputField";
 import RadioList from "src/libraries/Training/RadioList";
@@ -21,12 +21,12 @@ import { ButtonPrimary } from "src/library/StyledComponents/CommonStyled";
 import { ErrorDetail } from "src/libraries/styled/ErrormessageStyled";
 import { IAddAdmissionBody } from "src/Interface/Admission/IAdmission";
 import { AddAdmissionDetails, resetAddAdmissionMsg } from "src/requests/Admission/RequestAdmission";
-  
+
 const AdmissionForm = () => {
     const { Id } = useParams();
     const dispatch = useDispatch();
     const navigate = useNavigate();
-    const [heading,setHeading] = useState('Admission Form')
+    const [heading, setHeading] = useState('Admission Form')
     const [EditMode, setEditMode] = useState(true);
     const [ClassID, setClassID] = useState('0')
     const [StudentName, setStudentName] = useState('')
@@ -68,8 +68,8 @@ const AdmissionForm = () => {
     const Class = useSelector((state: RootState) => state.Enquiry.Class);
     const AddAdmissionMsg = useSelector((state: RootState) => state.Admission.AddAdmissionMsg)
     console.log(Class);
-    const EnquiryDetails  = useSelector((state: RootState) => state.Enquiry.EnquiryDetails);
-    const  Loading  = useSelector((state: RootState) => state.Enquiry.Loading);
+    const EnquiryDetails = useSelector((state: RootState) => state.Enquiry.EnquiryDetails);
+    const Loading = useSelector((state: RootState) => state.Enquiry.Loading);
     useEffect(() => {
         if (Id !== undefined) {
             const GetEnquiryDetailsBody: IGetEnquiryDetailsBody = {
@@ -94,18 +94,18 @@ const AdmissionForm = () => {
             setStudentAddress(EnquiryDetails.StudentAddress)
             setSocietyName(EnquiryDetails.SocietyName)
             setEmailId(EnquiryDetails.EmailId)
-            if (EnquiryDetails.PhotoFileName !=='' && EnquiryDetails.PhotoFilePath !=='' &&
-            EnquiryDetails.ReceiptFileName !=='' && EnquiryDetails.ReceiptFilePath!==''
-            ){
-            setPhotoFileName(EnquiryDetails.PhotoFileName)
-            setPhotoFilePath(EnquiryDetails.PhotoFilePath)
-            setReceiptFileName(EnquiryDetails.ReceiptFileName)
-            setReceiptFilePath(EnquiryDetails.ReceiptFilePath)
+            if (EnquiryDetails.PhotoFileName !== '' && EnquiryDetails.PhotoFilePath !== '' &&
+                EnquiryDetails.ReceiptFileName !== '' && EnquiryDetails.ReceiptFilePath !== ''
+            ) {
+                setPhotoFileName(EnquiryDetails.PhotoFileName)
+                setPhotoFilePath(EnquiryDetails.PhotoFilePath)
+                setReceiptFileName(EnquiryDetails.ReceiptFileName)
+                setReceiptFilePath(EnquiryDetails.ReceiptFilePath)
             }
         }
     }, [EnquiryDetails])
     console.log(EnquiryDetails)
-    console.log(BirthDate,Age)
+    console.log(BirthDate, Age)
 
     useEffect(() => {
         dispatch(getClass())
@@ -115,18 +115,18 @@ const AdmissionForm = () => {
     useEffect(() => {
         if (AddAdmissionMsg !== '') {
             // toast.success(AddStudentMsg);
-            if (AddAdmissionMsg === '0'){
+            if (AddAdmissionMsg === '0') {
                 toast.error('Failed to Add Admission.');
-            } else if (AddAdmissionMsg === '1'){
+            } else if (AddAdmissionMsg === '1') {
                 toast.success('Admission Added Successfully.');
                 clickCancel();
-            } else if (AddAdmissionMsg === '2'){
+            } else if (AddAdmissionMsg === '2') {
                 toast.success('Admission Details Updated Successfully.');
                 clickCancel();
                 navigate('/extended-sidebar/Student/AddEnquiry')
-            } else if (AddAdmissionMsg === '3'){
+            } else if (AddAdmissionMsg === '3') {
                 toast.error('Email Id Already Exists.');
-            } 
+            }
             dispatch(resetAddAdmissionMsg());
 
             // navigate("/")
@@ -197,7 +197,7 @@ const AdmissionForm = () => {
         // Regular expression to check if the input contains only alphabetic characters
         const nameRegex = /^[a-zA-Z\s]+$/;
         return nameRegex.test(name);
-      };
+    };
 
 
     const clickAge = () => {
@@ -212,9 +212,9 @@ const AdmissionForm = () => {
         if (value.trim() === "") {
             setFatherName("");
             setFatherNameErrorMessage("");
-          } else if (isNameValid(value)) {
-        setFatherName(value);
-        setFatherNameErrorMessage("");
+        } else if (isNameValid(value)) {
+            setFatherName(value);
+            setFatherNameErrorMessage("");
         }
     }
 
@@ -228,10 +228,10 @@ const AdmissionForm = () => {
         if (value.trim() === "") {
             setMotherName("");
             setMotherNameErrorMessage("");
-          } else if (isNameValid(value)) 
-        setMotherName(value);
+        } else if (isNameValid(value))
+            setMotherName(value);
         setMotherNameErrorMessage("");
-        
+
     }
     const clickMotherPhoneNo = (value) => {
         // true if its a number, false if not & cannot enter more than 10 digit
@@ -261,7 +261,7 @@ const AdmissionForm = () => {
     const BlurEmailId = () => {
         setEmailIdErrorMessage(IsEmailValid(EmailId.trim()))
     }
-    const handlePhotoFileChange = (e) =>{
+    const handlePhotoFileChange = (e) => {
         const file = e.target.files[0];
         const fileExtension = file.name.split('.').pop();
         const fileNamePrefix = `${StudentName.split(' ')[0]}_${BirthDate.replace(/\//g, '')}`;
@@ -271,7 +271,7 @@ const AdmissionForm = () => {
         console.log('Photo File Name:', fileName);
         console.log('Photo File Path:', URL.createObjectURL(file));
     }
-    const handleReceiptFileChange = (e) =>{
+    const handleReceiptFileChange = (e) => {
         const file = e.target.files[0];
         const fileExtension = file.name.split('.').pop();
         const fileNamePrefix = `${StudentName.split(' ')[0]}_${BirthDate.replace(/\//g, '')}`;
@@ -351,13 +351,15 @@ const AdmissionForm = () => {
         } else {
             setEmailIdErrorMessage("");
         }
-        if (PhotoFilePath==""){
+        if (PhotoFilePath == "") {
             setPhotoFileErrorMessage("Please attach Student's Photo")
+            returnVal = false
         } else {
             setPhotoFileErrorMessage("");
         }
-        if (ReceiptFilePath==""){
+        if (ReceiptFilePath == "") {
             setReceiptFileErrorMessage("Please attach Fees Receipt.")
+            returnVal = false
         } else {
             setReceiptFileErrorMessage("");
         }
@@ -366,7 +368,7 @@ const AdmissionForm = () => {
 
 
     const onEdit = () => {
-         if (EditMode === true) {
+        if (EditMode === true) {
             setEditMode(false)
             navigate('/extended-sidebar/Student/AddEnquiry')
         }
@@ -387,10 +389,10 @@ const AdmissionForm = () => {
                 StudentAddress: StudentAddress,
                 SocietyName: SocietyName,
                 EmailId: EmailId.trim(),
-                PhotoFileName : PhotoFileName,
-                PhotoFilePath : PhotoFilePath,
-                ReceiptFileName : ReceiptFileName,
-                ReceiptFilePath : ReceiptFilePath
+                PhotoFileName: PhotoFileName,
+                PhotoFilePath: PhotoFilePath,
+                ReceiptFileName: ReceiptFileName,
+                ReceiptFilePath: ReceiptFilePath
 
 
             }
@@ -415,20 +417,20 @@ const AdmissionForm = () => {
 
     return (
         <>
-<PageHeader heading={heading} />
-            <Container  sx={{ py: 2}} >
-            {Loading ? (
-  <Box  p={3} mt={12}
-    sx={{
-      display: 'flex',
-      justifyContent: 'center',
-      alignItems: 'center',
-      height: '100%', 
-    }}
-  >
-   <CircularProgress />
-     </Box>
-) : (
+            <PageHeader heading={heading} />
+            <Container sx={{ py: 2 }} >
+                {Loading ? (
+                    <Box p={3} mt={12}
+                        sx={{
+                            display: 'flex',
+                            justifyContent: 'center',
+                            alignItems: 'center',
+                            height: '100%',
+                        }}
+                    >
+                        <CircularProgress />
+                    </Box>
+                ) : (
                     <Card variant="outlined">
                         <Box p={1}>
                             {/* <Typography variant="h2" gutterBottom align="center">
@@ -437,11 +439,11 @@ const AdmissionForm = () => {
                             <Divider /> */}
 
                             <form>
-                            <Grid item xs={12} sx={{ display: 'flex', justifyContent: 'flex-end' }}>
-                                <FormGroup>
-                                    <FormControlLabel control={<Switch checked={EditMode} onChange={onEdit} />} label="Admission Form" />
-                                </FormGroup>
-                            </Grid>
+                                <Grid item xs={12} sx={{ display: 'flex', justifyContent: 'flex-end' }}>
+                                    <FormGroup>
+                                        <FormControlLabel control={<Switch checked={EditMode} onChange={onEdit} />} label="Admission Form" />
+                                    </FormGroup>
+                                </Grid>
                                 <Grid container spacing={2} >
                                     <Grid item xs={6} sm={6}>
                                         <InputField
@@ -461,7 +463,7 @@ const AdmissionForm = () => {
                                             ErrorMessage={ClassErrorMessage}
                                         />
                                     </Grid>
-                                    <Grid item xs={6} sm={6}  sx={{ mt:0.5 }}>
+                                    <Grid item xs={6} sm={6} sx={{ mt: 0.5 }}>
                                         <CalendarField
                                             Item={BirthDate}
                                             Label="Birth Date *"
@@ -471,7 +473,7 @@ const AdmissionForm = () => {
 
                                     </Grid>
 
-                                    <Grid item xs={6} sm={6}  sx={{ mt:0.5 }}>
+                                    <Grid item xs={6} sm={6} sx={{ mt: 0.5 }}>
                                         <RadioList
                                             ItemList={GenderList}
                                             Label="Gender *"
@@ -547,49 +549,49 @@ const AdmissionForm = () => {
                                             ErrorMessage={SocietyNameErrorMessage}
                                         />
                                     </Grid>
-                              
-                                        
-                                         <Grid item xs={6} sm={6} >
-                                         <Typography>Receipt *</Typography>
-                    
-                                         {/* <Button sx={{ backgroundColor: "#6BC7FF", ":hover": { backgroundColor: "#48B7FB" } }}
-                                                 component="label"
-                                                 role={undefined}
-                                                 variant="contained"
-                                                 tabIndex={-1}
-                                                 startIcon={<CloudUploadIcon sx={{ color: "white" }} />}
-                                             >
-                                                 Student Photo
-                                                 <VisuallyHiddenInput type="file" />
-                                             </Button> */}
-                                               <Box component="section" sx={{ p: 1 }}>
-                                               <input type="file"   accept=".png,.jpg" 
-                                                 onChange={handleReceiptFileChange} defaultValue={ReceiptFileName} required   />
-                                               </Box>
-                                               <ErrorDetail>{ReceiptFileErrorMessage}</ErrorDetail>
-                                         </Grid>
-                                         <Grid item xs={6} sm={6}>
-                                         <Typography>Student's Photo *</Typography>
-                                                
-                                         {/* <Button sx={{ backgroundColor: "#6BC7FF", ":hover": { backgroundColor: "#48B7FB" } }}
-                                                 component="label"
-                                                 role={undefined}
-                                                 variant="contained"
-                                                 tabIndex={-1}
-                                                 startIcon={<CloudUploadIcon sx={{ color: "white" }} />}
-                                             >
-                                                 Student Photo
-                                                 <VisuallyHiddenInput type="file" />
-                                             </Button> */}
-                                                 <Box component="section" sx={{ p: 1 }}>
-                                                     <input type="file"   accept=".png,.jpg"
-                                                      onChange={handlePhotoFileChange} defaultValue={PhotoFileName} required />
-                                                     </Box>
-                                                     <ErrorDetail>{PhotoFileErrorMessage}</ErrorDetail>
 
-                                                  
-                                         </Grid>
-                                    
+
+                                    <Grid item xs={6} sm={6} >
+                                        <Typography>Receipt *</Typography>
+
+                                        {/* <Button sx={{ backgroundColor: "#6BC7FF", ":hover": { backgroundColor: "#48B7FB" } }}
+                                                 component="label"
+                                                 role={undefined}
+                                                 variant="contained"
+                                                 tabIndex={-1}
+                                                 startIcon={<CloudUploadIcon sx={{ color: "white" }} />}
+                                             >
+                                                 Student Photo
+                                                 <VisuallyHiddenInput type="file" />
+                                             </Button> */}
+                                        <Box component="section" sx={{ p: 1 }}>
+                                            <input type="file" accept=".png,.jpg"
+                                                onChange={handleReceiptFileChange} defaultValue={ReceiptFileName} required />
+                                        </Box>
+                                        <ErrorDetail>{ReceiptFileErrorMessage}</ErrorDetail>
+                                    </Grid>
+                                    <Grid item xs={6} sm={6}>
+                                        <Typography>Student's Photo *</Typography>
+
+                                        {/* <Button sx={{ backgroundColor: "#6BC7FF", ":hover": { backgroundColor: "#48B7FB" } }}
+                                                 component="label"
+                                                 role={undefined}
+                                                 variant="contained"
+                                                 tabIndex={-1}
+                                                 startIcon={<CloudUploadIcon sx={{ color: "white" }} />}
+                                             >
+                                                 Student Photo
+                                                 <VisuallyHiddenInput type="file" />
+                                             </Button> */}
+                                        <Box component="section" sx={{ p: 1 }}>
+                                            <input type="file" accept=".png,.jpg"
+                                                onChange={handlePhotoFileChange} defaultValue={PhotoFileName} required />
+                                        </Box>
+                                        <ErrorDetail>{PhotoFileErrorMessage}</ErrorDetail>
+
+
+                                    </Grid>
+
                                     <Grid item xs={12}>
                                         <Box
                                             sx={{
@@ -598,9 +600,9 @@ const AdmissionForm = () => {
                                                 gap: 3
                                             }}>
                                             {/* <ButtonField Label="Submit" ClickItem={clickSubmit} /> */}
-                                            <ButtonPrimary  onClick={clickSubmit} >Submit&nbsp;<SendIcon fontSize="small"/></ButtonPrimary>
+                                            <ButtonPrimary onClick={clickSubmit} >Submit&nbsp;<SendIcon fontSize="small" /></ButtonPrimary>
                                             {/* <ButtonField Label="Clear" ClickItem={clickCancel} /> */}
-                                            <ButtonPrimary  onClick={clickCancel} >Clear</ButtonPrimary>
+                                            <ButtonPrimary onClick={clickCancel} >Clear</ButtonPrimary>
                                         </Box>
                                     </Grid>
                                 </Grid>
