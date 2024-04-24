@@ -252,7 +252,7 @@ const AdmissionForm = () => {
         setSocietyNameErrorMessage("");
     }
     const clickEmailId = (value) => {
-        setEmailId(value);
+        setEmailId(value.toLowerCase());
         setEmailIdErrorMessage("");
     }
 
