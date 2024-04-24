@@ -139,7 +139,11 @@ const AdmissionForm = () => {
         setClassErrorMessage("");
     }
     const clickStudentName = (value) => {
-        setStudentName(value);
+        if (value.trim() === "") {
+            setStudentName("");
+            setStudentNameErrorMessage("");
+        } else if (isNameValid(value))
+            setStudentName(value);
         setStudentNameErrorMessage("");
     }
 
