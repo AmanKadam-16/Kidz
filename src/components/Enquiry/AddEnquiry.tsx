@@ -263,7 +263,7 @@ const AddEnquiry = () => {
         } else {
             setStudentNameErrorMessage("");
         }
-        if (BirthDate == "") {
+        if (BirthDate === "") {
             setBirthDateErrorMessage("Please enter student's Birthdate")
             returnVal = false
         } else {
@@ -275,47 +275,52 @@ const AddEnquiry = () => {
         } else {
             setGenderErrorMessage("");
         }
-        if (FatherName == "") {
+        if (FatherName === "") {
             setFatherNameErrorMessage("Please enter Father name")
             returnVal = false
         } else {
             setFatherNameErrorMessage("");
         }
-        if (FatherPhoneNo == "") {
+        if (FatherPhoneNo === "") {
             setFatherPhoneNoErrorMessage("Please enter valid phone number")
             returnVal = false
         } else {
             setFatherPhoneNoErrorMessage("");
         }
-        if (MotherName == "") {
+        if (MotherName === "") {
             setMotherNameErrorMessage("Please enter Mother name")
             returnVal = false
         } else {
             setMotherNameErrorMessage("");
         }
-        if (MotherPhoneNo == "") {
+        if (MotherPhoneNo === "") {
             setMotherPhoneNoErrorMessage("Please enter valid phone number")
             returnVal = false
         } else {
             setMotherPhoneNoErrorMessage("");
         }
-        if (StudentAddress == "") {
+        if (StudentAddress === "") {
             setStudentAddressErrorMessage("Please enter Residential Address")
             returnVal = false
         } else {
             setStudentAddressErrorMessage("");
         }
-        if (SocietyName == "") {
+        if (SocietyName === "") {
             setSocietyNameErrorMessage("Please enter Society Name")
             returnVal = false
         } else {
             setSocietyNameErrorMessage("");
         }
-        if (EmailId == "") {
+        if (EmailId === "") {
             setEmailIdErrorMessage("Please enter valid email-id")
             returnVal = false
         } else {
             setEmailIdErrorMessage("");
+        }
+        if (EmailIdErrorMessage !=="" || PhotoFileErrorMessage !==""){
+            returnVal = false
+        } else{
+            returnVal = true
         }
         return returnVal
     }
@@ -347,7 +352,11 @@ const AddEnquiry = () => {
             }
             dispatch(AddStudentDetails(AddStudentBody))
 
-            console.log(AddStudentBody)
+            console.log(IsFormValid())
+        }
+        else {
+            // If the form is not valid, show an error message
+            toast.error('Please fill all required fields correctly.');        
         }
 
     }

@@ -370,6 +370,11 @@ const AdmissionForm = () => {
        } else {
            setReceiptFileErrorMessage("");
        }
+       if (EmailIdErrorMessage !=="" || PhotoFileErrorMessage !==""){
+        returnVal = false
+    } else{
+        returnVal = true
+    }
        return returnVal
    }
 
@@ -404,7 +409,10 @@ const AdmissionForm = () => {
            dispatch(AddAdmissionDetails(AddStudentBody))
            setClear(true)
            console.log(AddStudentBody)
-       }
+       }else {
+        // If the form is not valid, show an error message
+        toast.error('Please fill all required fields correctly.');
+    }
    }
 
    const VisuallyHiddenInput = styled('input')({
