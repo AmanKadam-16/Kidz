@@ -1,5 +1,5 @@
 import { Box, Card, Container, Grid, Typography, Divider, CircularProgress, FormGroup, FormControlLabel, Switch, Button, styled } from "@mui/material";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import PageHeader from 'src/library/heading/pageHeader'
 import SendIcon from '@mui/icons-material/Send';
@@ -24,6 +24,7 @@ import { AddAdmissionDetails, resetAddAdmissionMsg } from "src/requests/Admissio
 
 const AdmissionForm = () => {
     const { Id } = useParams();
+    const [clear, setClear] = useState(false);
     const dispatch = useDispatch();
     const navigate = useNavigate();
     const [heading, setHeading] = useState('Admission Form')
@@ -49,7 +50,6 @@ const AdmissionForm = () => {
     const [ReceiptFileName, setReceiptFileName] = useState('')
     const [ReceiptFilePath, setReceiptFilePath] = useState('')
 
-
     const [ClassErrorMessage, setClassErrorMessage] = useState('')
     const [StudentNameErrorMessage, setStudentNameErrorMessage] = useState('')
     const [BirthDateErrorMessage, setBirthDateErrorMessage] = useState('')
@@ -64,6 +64,8 @@ const AdmissionForm = () => {
     const [PhotoFileErrorMessage, setPhotoFileErrorMessage] = useState('')
     const [ReceiptFileErrorMessage, setReceiptFileErrorMessage] = useState('')
 
+    let photoFileInputRef = useRef(null);
+    let receiptFileInputRef = useRef(null);
 
     const Class = useSelector((state: RootState) => state.Enquiry.Class);
     const AddAdmissionMsg = useSelector((state: RootState) => state.Admission.AddAdmissionMsg)
@@ -94,12 +96,12 @@ const AdmissionForm = () => {
             setStudentAddress(EnquiryDetails.StudentAddress)
             setSocietyName(EnquiryDetails.SocietyName)
             setEmailId(EnquiryDetails.EmailId)
-
-                setPhotoFileName(EnquiryDetails.PhotoFileName)
-                setPhotoFilePath(EnquiryDetails.PhotoFilePath)
-                setReceiptFileName(EnquiryDetails.ReceiptFileName)
-                setReceiptFilePath(EnquiryDetails.ReceiptFilePath)
-            
+            photoFileInputRef = EnquiryDetails.PhotoFileName
+            receiptFileInputRef = EnquiryDetails.ReceiptFileName
+            // setPhotoFileName(EnquiryDetails.PhotoFileName)
+            // setPhotoFilePath(EnquiryDetails.PhotoFilePath)
+            // setReceiptFileName(EnquiryDetails.ReceiptFileName)
+            // setReceiptFilePath(EnquiryDetails.ReceiptFilePath)
         }
     }, [EnquiryDetails])
     console.log(EnquiryDetails)
@@ -112,12 +114,18 @@ const AdmissionForm = () => {
 
     useEffect(() => {
         if (AddAdmissionMsg !== '') {
-            // toast.success(AddStudentMsg);
             if (AddAdmissionMsg === '0') {
                 toast.error('Failed to Add Admission.');
             } else if (AddAdmissionMsg === '1') {
                 toast.success('Admission Added Successfully.');
                 clickCancel();
+                // Clear the file input values
+                if (photoFileInputRef.current) {
+                    photoFileInputRef.current.value = '';
+                }
+                if (receiptFileInputRef.current) {
+                    receiptFileInputRef.current.value = '';
+                }
             } else if (AddAdmissionMsg === '2') {
                 toast.success('Admission Details Updated Successfully.');
                 clickCancel();
@@ -126,9 +134,6 @@ const AdmissionForm = () => {
                 toast.error('Email Id Already Exists.');
             }
             dispatch(resetAddAdmissionMsg());
-
-            // navigate("/")
-
         }
     }, [AddAdmissionMsg, dispatch]);
 
@@ -144,12 +149,12 @@ const AdmissionForm = () => {
             setStudentName(value);
         setStudentNameErrorMessage("");
     }
-
+ 
     const clickBirthDate = (value) => {
         const selectedDate = new Date(value);
         const currentDate = new Date();
         const twoYearsAgo = new Date(currentDate.getFullYear() - 1, currentDate.getMonth(), currentDate.getDate());
-
+ 
         // Check if the selected date is in the future
         if (selectedDate > currentDate) {
             setBirthDateErrorMessage("Birth date cannot be in the future");
@@ -193,19 +198,19 @@ const AdmissionForm = () => {
         setPhotoFileErrorMessage('')
         setReceiptFileErrorMessage('')
     }
-
-
+ 
+ 
     const isNameValid = (name) => {
         // Regular expression to check if the input contains only alphabetic characters
         const nameRegex = /^[a-zA-Z\s]+$/;
         return nameRegex.test(name);
     };
-
-
+ 
+ 
     const clickAge = () => {
-
+ 
     };
-
+ 
     const clickGender = (value) => {
         setGender(value);
         setGenderErrorMessage("");
@@ -219,7 +224,7 @@ const AdmissionForm = () => {
             setFatherNameErrorMessage("");
         }
     }
-
+ 
     const clickFatherPhoneNo = (value) => {
         // true if its a number, false if not & cannot enter more than 10 digit
         if (!isNaN(+value) && value.length < 11)
@@ -233,7 +238,7 @@ const AdmissionForm = () => {
         } else if (isNameValid(value))
             setMotherName(value);
         setMotherNameErrorMessage("");
-
+ 
     }
     const clickMotherPhoneNo = (value) => {
         // true if its a number, false if not & cannot enter more than 10 digit
@@ -253,7 +258,7 @@ const AdmissionForm = () => {
         setEmailId(value.toLowerCase());
         setEmailIdErrorMessage("");
     }
-
+ 
     const BlurFatherPhoneNo = () => {
         setFatherPhoneNoErrorMessage(IsPhoneNoValid(FatherPhoneNo))
     }
@@ -282,9 +287,9 @@ const AdmissionForm = () => {
         setReceiptFilePath(URL.createObjectURL(file));
         console.log('Receipt File Name:', fileName);
         console.log('Receipt File Path:', URL.createObjectURL(file));
-
+ 
     }
-
+ 
     const IsFormValid = () => {
         let returnVal = true
         if (ClassID === "0") {
@@ -356,267 +361,239 @@ const AdmissionForm = () => {
         if (PhotoFilePath == "") {
             setPhotoFileErrorMessage("Please attach Student's Photo")
             returnVal = false
-        } else {
-            setPhotoFileErrorMessage("");
-        }
-        if (ReceiptFilePath == "") {
-            setReceiptFileErrorMessage("Please attach Fees Receipt.")
-            returnVal = false
-        } else {
-            setReceiptFileErrorMessage("");
-        }
-        return returnVal
-    }
+       } else {
+           setPhotoFileErrorMessage("");
+       }
+       if (ReceiptFilePath == "") {
+           setReceiptFileErrorMessage("Please attach Fees Receipt.")
+           returnVal = false
+       } else {
+           setReceiptFileErrorMessage("");
+       }
+       return returnVal
+   }
 
 
-    const onEdit = () => {
-        if (EditMode === true) {
-            setEditMode(false)
-            navigate('/extended-sidebar/Student/AddEnquiry')
-        }
-    }
+   const onEdit = () => {
+       if (EditMode === true) {
+           setEditMode(false)
+           navigate('/extended-sidebar/Student/AddEnquiry')
+       }
+   }
 
-    const clickSubmit = () => {
-        if (IsFormValid()) {
-            const AddStudentBody: IAddAdmissionBody = {
-                ID: Id == undefined ? 0 : Number(Id),
-                ClassId: Number(ClassID),
-                StudentName: StudentName,
-                Birthdate: BirthDate,
-                Gender: Number(Gender),
-                FatherName: FatherName,
-                FatherPhoneNo: FatherPhoneNo,
-                MotherName: MotherName,
-                MotherPhoneNo: MotherPhoneNo,
-                StudentAddress: StudentAddress,
-                SocietyName: SocietyName,
-                EmailId: EmailId.trim(),
-                PhotoFileName: PhotoFileName,
-                PhotoFilePath: PhotoFilePath,
-                ReceiptFileName: ReceiptFileName,
-                ReceiptFilePath: ReceiptFilePath
+   const clickSubmit = () => {
+       if (IsFormValid()) {
+           const AddStudentBody: IAddAdmissionBody = {
+               ID: Id == undefined ? 0 : Number(Id),
+               ClassId: Number(ClassID),
+               StudentName: StudentName,
+               Birthdate: BirthDate,
+               Gender: Number(Gender),
+               FatherName: FatherName,
+               FatherPhoneNo: FatherPhoneNo,
+               MotherName: MotherName,
+               MotherPhoneNo: MotherPhoneNo,
+               StudentAddress: StudentAddress,
+               SocietyName: SocietyName,
+               EmailId: EmailId.trim(),
+               PhotoFileName: PhotoFileName,
+               PhotoFilePath: PhotoFilePath,
+               ReceiptFileName: ReceiptFileName,
+               ReceiptFilePath: ReceiptFilePath
+           }
+           dispatch(AddAdmissionDetails(AddStudentBody))
+           setClear(true)
+           console.log(AddStudentBody)
+       }
+   }
 
-
-            }
-            dispatch(AddAdmissionDetails(AddStudentBody))
-
-            console.log(AddStudentBody)
-        }
-
-    }
-    const VisuallyHiddenInput = styled('input')({
-        clip: 'rect(0 0 0 0)',
-        clipPath: 'inset(50%)',
-        height: 1,
-        overflow: 'hidden',
-        position: 'absolute',
-        bottom: 0,
-        left: 0,
-        whiteSpace: 'nowrap',
-        width: 1
-    });
+   const VisuallyHiddenInput = styled('input')({
+       clip: 'rect(0 0 0 0)',
+       clipPath: 'inset(50%)',
+       height: 1,
+       overflow: 'hidden',
+       position: 'absolute',
+       bottom: 0,
+       left: 0,
+       whiteSpace: 'nowrap',
+       width: 1
+   });
 
 
-    return (
-        <>
-            <PageHeader heading={heading} />
-            <Container sx={{ py: 2 }} >
-                {Loading ? (
-                    <Box p={3} mt={12}
-                        sx={{
-                            display: 'flex',
-                            justifyContent: 'center',
-                            alignItems: 'center',
-                            height: '100%',
-                        }}
-                    >
-                        <CircularProgress />
-                    </Box>
-                ) : (
-                    <Card variant="outlined">
-                        <Box p={1}>
-                            {/* <Typography variant="h2" gutterBottom align="center">
-                                Enquiry Form
-                            </Typography>
-                            <Divider /> */}
 
-                            <form>
-                                <Grid item xs={12} sx={{ display: 'flex', justifyContent: 'flex-end' }}>
-                                    <FormGroup>
-                                        <FormControlLabel control={<Switch checked={EditMode} onChange={onEdit} />} label="Admission Form" />
-                                    </FormGroup>
-                                </Grid>
-                                <Grid container spacing={2} >
-                                    <Grid item xs={6} sm={6}>
-                                        <InputField
-                                            Item={StudentName}
-                                            Label="Student's Name"
-                                            ClickItem={clickStudentName}
-                                            ErrorMessage={StudentNameErrorMessage}
-                                        />
-                                    </Grid>
-                                    <Grid item xs={6} sm={6} sx={{ mt: 2.7 }} >
-                                        <Dropdown
-                                            ItemList={Class}
-                                            Label=""
-                                            DefaultValue={ClassID}
-                                            ClickItem={clickClass}
-                                            Placeholder="Select Class"
-                                            ErrorMessage={ClassErrorMessage}
-                                        />
-                                    </Grid>
-                                    <Grid item xs={6} sm={6} sx={{ mt: 0.5 }}>
-                                        <CalendarField
-                                            Item={BirthDate}
-                                            Label="Birth Date *"
-                                            ClickItem={clickBirthDate}
-                                            ErrorMessage={BirthDateErrorMessage}
-                                        />
+   return (
+       <>
+           <PageHeader heading={heading} />
+           <Container sx={{ py: 2 }} >
+               {Loading ? (
+                   <Box p={3} mt={12}
+                       sx={{
+                           display: 'flex',
+                           justifyContent: 'center',
+                           alignItems: 'center',
+                           height: '100%',
+                       }}
+                   >
+                       <CircularProgress />
+                   </Box>
+               ) : (
+                   <Card variant="outlined">
+                       <Box p={1}>
+                           <form>
+                               <Grid item xs={12} sx={{ display: 'flex', justifyContent: 'flex-end' }}>
+                                   <FormGroup>
+                                       <FormControlLabel control={<Switch checked={EditMode} onChange={onEdit} />} label="Admission Form" />
+                                   </FormGroup>
+                               </Grid>
+                               <Grid container spacing={2} >
+                                   <Grid item xs={6} sm={6}>
+                                       <InputField
+                                           Item={StudentName}
+                                           Label="Student's Name"
+                                           ClickItem={clickStudentName}
+                                           ErrorMessage={StudentNameErrorMessage}
+                                       />
+                                   </Grid>
+                                   <Grid item xs={6} sm={6} sx={{ mt: 2.7 }} >
+                                       <Dropdown
+                                           ItemList={Class}
+                                           Label=""
+                                           DefaultValue={ClassID}
+                                           ClickItem={clickClass}
+                                           Placeholder="Select Class"
+                                           ErrorMessage={ClassErrorMessage}
+                                       />
+                                   </Grid>
+                                   <Grid item xs={6} sm={6} sx={{ mt: 0.5 }}>
+                                       <CalendarField
+                                           Item={BirthDate}
+                                           Label="Birth Date *"
+                                           ClickItem={clickBirthDate}
+                                           ErrorMessage={BirthDateErrorMessage}
+                                       />
 
-                                    </Grid>
+                                   </Grid>
 
-                                    <Grid item xs={6} sm={6} sx={{ mt: 0.5 }}>
-                                        <RadioList
-                                            ItemList={GenderList}
-                                            Label="Gender *"
-                                            DefaultValue={Gender}
-                                            ClickItem={clickGender}
-                                            ErrorMessage={GenderErrorMessage}
-                                        />
-                                    </Grid>
-                                    <Grid item xs={6} sm={6}>
-                                        <InputField
-                                            Item={Age}
-                                            Label="Student's Age"
-                                            ClickItem={clickAge}
-                                            ErrorMessage={undefined}
-                                        />
-                                    </Grid>
-                                    <Grid item xs={6} sm={6}>
-                                        <InputField
-                                            Item={EmailId}
-                                            Label="Email Id"
-                                            ClickItem={clickEmailId}
-                                            ErrorMessage={EmailIdErrorMessage}
-                                            BlurItem={BlurEmailId}
-                                        />
-                                    </Grid>
-                                    <Grid item xs={6} sm={6}>
-                                        <InputField
-                                            Item={FatherName}
-                                            Label="Father's Name"
-                                            ClickItem={clickFatherName}
-                                            ErrorMessage={FatherNameErrorMessage}
-                                        />
-                                    </Grid>
-                                    <Grid item xs={6} sm={6}>
-                                        <InputField
-                                            Item={FatherPhoneNo}
-                                            Label="Phone No."
-                                            ClickItem={clickFatherPhoneNo}
-                                            ErrorMessage={FatherPhoneNoErrorMessage}
-                                            BlurItem={BlurFatherPhoneNo}
-                                        />
-                                    </Grid>
-                                    <Grid item xs={6} sm={6}>
-                                        <InputField
-                                            Item={MotherName}
-                                            Label="Mother's Name"
-                                            ClickItem={clickMotherName}
-                                            ErrorMessage={MotherNameErrorMessage}
-                                        />
-                                    </Grid>
-                                    <Grid item xs={6} sm={6}>
-                                        <InputField
-                                            Item={MotherPhoneNo}
-                                            Label="Phone No."
-                                            ClickItem={clickMotherPhoneNo}
-                                            ErrorMessage={MotherPhoneNoErrorMessage}
-                                            BlurItem={BlurMotherPhoneNo}
-                                        />
-                                    </Grid>
-                                    <Grid item xs={6} sm={6}>
-                                        <InputField
-                                            Item={StudentAddress}
-                                            Label="Address"
-                                            ClickItem={clickStudentAddress}
-                                            ErrorMessage={StudentAddressErrorMessage}
-                                        />
-                                    </Grid>
-                                    <Grid item xs={6} sm={6}>
-                                        <InputField
-                                            Item={SocietyName}
-                                            Label="Society Name"
-                                            ClickItem={clickSocietyName}
-                                            ErrorMessage={SocietyNameErrorMessage}
-                                        />
-                                    </Grid>
+                                   <Grid item xs={6} sm={6} sx={{ mt: 0.5 }}>
+                                       <RadioList
+                                           ItemList={GenderList}
+                                           Label="Gender *"
+                                           DefaultValue={Gender}
+                                           ClickItem={clickGender}
+                                           ErrorMessage={GenderErrorMessage}
+                                       />
+                                   </Grid>
+                                   <Grid item xs={6} sm={6}>
+                                       <InputField
+                                           Item={Age}
+                                           Label="Student's Age"
+                                           ClickItem={clickAge}
+                                           ErrorMessage={undefined}
+                                       />
+                                   </Grid>
+                                   <Grid item xs={6} sm={6}>
+                                       <InputField
+                                           Item={EmailId}
+                                           Label="Email Id"
+                                           ClickItem={clickEmailId}
+                                           ErrorMessage={EmailIdErrorMessage}
+                                           BlurItem={BlurEmailId}
+                                       />
+                                   </Grid>
+                                   <Grid item xs={6} sm={6}>
+                                       <InputField
+                                           Item={FatherName}
+                                           Label="Father's Name"
+                                           ClickItem={clickFatherName}
+                                           ErrorMessage={FatherNameErrorMessage}
+                                       />
+                                   </Grid>
+                                   <Grid item xs={6} sm={6}>
+                                       <InputField
+                                           Item={FatherPhoneNo}
+                                           Label="Phone No."
+                                           ClickItem={clickFatherPhoneNo}
+                                           ErrorMessage={FatherPhoneNoErrorMessage}
+                                           BlurItem={BlurFatherPhoneNo}
+                                       />
+                                   </Grid>
+                                   <Grid item xs={6} sm={6}>
+                                       <InputField
+                                           Item={MotherName}
+                                           Label="Mother's Name"
+                                           ClickItem={clickMotherName}
+                                           ErrorMessage={MotherNameErrorMessage}
+                                       />
+                                   </Grid>
+                                   <Grid item xs={6} sm={6}>
+                                       <InputField
+                                           Item={MotherPhoneNo}
+                                           Label="Phone No."
+                                           ClickItem={clickMotherPhoneNo}
+                                           ErrorMessage={MotherPhoneNoErrorMessage}
+                                           BlurItem={BlurMotherPhoneNo}
+                                       />
+                                   </Grid>
+                                   <Grid item xs={6} sm={6}>
+                                       <InputField
+                                           Item={StudentAddress}
+                                           Label="Address"
+                                           ClickItem={clickStudentAddress}
+                                           ErrorMessage={StudentAddressErrorMessage}
+                                       />
+                                   </Grid>
+                                   <Grid item xs={6} sm={6}>
+                                       <InputField
+                                           Item={SocietyName}
+                                           Label="Society Name"
+                                           ClickItem={clickSocietyName}
+                                           ErrorMessage={SocietyNameErrorMessage}
+                                       />
+                                   </Grid>
 
 
-                                    <Grid item xs={6} sm={6} >
-                                        <Typography>Receipt *</Typography>
+                                   <Grid item xs={6} sm={6} >
+                                       <Typography>Receipt *</Typography>
 
-                                        {/* <Button sx={{ backgroundColor: "#6BC7FF", ":hover": { backgroundColor: "#48B7FB" } }}
-                                                 component="label"
-                                                 role={undefined}
-                                                 variant="contained"
-                                                 tabIndex={-1}
-                                                 startIcon={<CloudUploadIcon sx={{ color: "white" }} />}
-                                             >
-                                                 Student Photo
-                                                 <VisuallyHiddenInput type="file" />
-                                             </Button> */}
-                                        <Box component="section" sx={{ p: 1 }}>
-                                            <input type="file" accept=".png,.jpg"
-                                                onChange={handleReceiptFileChange}  required />
-                                        </Box>
-                                        <ErrorDetail>{ReceiptFileErrorMessage}</ErrorDetail>
-                                    </Grid>
-                                    <Grid item xs={6} sm={6}>
-                                        <Typography>Student's Photo *</Typography>
+                                       <Box component="section" sx={{ p: 1 }}>
+                                           <input type="file" accept=".png,.jpg"
+                                               onChange={handleReceiptFileChange} ref={receiptFileInputRef} required />
+                                       </Box>
+                                       <ErrorDetail>{ReceiptFileErrorMessage}</ErrorDetail>
+                                   </Grid>
+                                   <Grid item xs={6} sm={6}>
+                                       <Typography>Student's Photo *</Typography>
 
-                                        {/* <Button sx={{ backgroundColor: "#6BC7FF", ":hover": { backgroundColor: "#48B7FB" } }}
-                                                 component="label"
-                                                 role={undefined}
-                                                 variant="contained"
-                                                 tabIndex={-1}
-                                                 startIcon={<CloudUploadIcon sx={{ color: "white" }} />}
-                                             >
-                                                 Student Photo
-                                                 <VisuallyHiddenInput type="file" />
-                                             </Button> */}
-                                        <Box component="section" sx={{ p: 1 }}>
-                                            <input type="file" accept=".png,.jpg"
-                                                onChange={handlePhotoFileChange}  required />
-                                        </Box>
-                                        <ErrorDetail>{PhotoFileErrorMessage}</ErrorDetail>
+                                       <Box component="section" sx={{ p: 1 }}>
+                                           <input type="file" accept=".png,.jpg"
+                                               onChange={handlePhotoFileChange} ref={photoFileInputRef} required />
+                                       </Box>
+                                       <ErrorDetail>{PhotoFileErrorMessage}</ErrorDetail>
 
 
-                                    </Grid>
+                                   </Grid>
 
-                                    <Grid item xs={12}>
-                                        <Box
-                                            sx={{
-                                                display: 'flex',
-                                                justifyContent: 'center',
-                                                gap: 3
-                                            }}>
-                                            {/* <ButtonField Label="Submit" ClickItem={clickSubmit} /> */}
-                                            <ButtonPrimary onClick={clickSubmit} >Submit&nbsp;<SendIcon fontSize="small" /></ButtonPrimary>
-                                            {/* <ButtonField Label="Clear" ClickItem={clickCancel} /> */}
-                                            <ButtonPrimary onClick={clickCancel} >Clear</ButtonPrimary>
-                                        </Box>
-                                    </Grid>
-                                </Grid>
-                            </form>
+                                   <Grid item xs={12}>
+                                       <Box
+                                           sx={{
+                                               display: 'flex',
+                                               justifyContent: 'center',
+                                               gap: 3
+                                           }}>
+                                           <ButtonPrimary onClick={clickSubmit} >Submit&nbsp;<SendIcon fontSize="small" /></ButtonPrimary>
+                                           <ButtonPrimary onClick={clickCancel} >Clear</ButtonPrimary>
+                                       </Box>
+                                   </Grid>
+                               </Grid>
+                           </form>
 
-                        </Box>
-                    </Card>
-                )}
-            </Container>
+                       </Box>
+                   </Card>
+               )}
+           </Container>
 
-        </>
-    );
+       </>
+   );
 
 }
 export default AdmissionForm;
