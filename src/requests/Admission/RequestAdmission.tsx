@@ -2,10 +2,10 @@ import { createSlice } from "@reduxjs/toolkit";
 import FollowUpApi from "src/api/FollowUp/ApiFollowUp"; // Import the correct API for follow-up
 import { IAddAdmissionBody, IGetAdmissionDetailsBody } from "src/Interface/Admission/IAdmission"; // Import the correct interfaces for follow-up
 import { AppThunk } from "src/store";
-import { getDateFormatted } from 'src/components/Common/util';
 import { Tooltip } from "@mui/material";
 import Delete from "@mui/icons-material/Delete";
 import AdmissionApi from "src/api/Admission/ApiAdmission";
+import { getDateFormatted } from 'src/components/Common/utils1';
 
 const AdmissionSlice = createSlice({
     name: 'Admission', // Change slice name to 'FollowUp'
@@ -82,7 +82,7 @@ export const getAdmissionList =
                     Text2: Item.ClassName,
                     Text3: Item.FatherPhoneNo,
                     Text4: Item.SocietyName,
-                    Text5: Item.AdmissionDate
+                    Text5: getDateFormatted(Item.AdmissionDate)
                 }
             })
             dispatch(AdmissionSlice.actions.getAdmissionList(responseData));
