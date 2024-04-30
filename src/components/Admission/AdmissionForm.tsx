@@ -260,10 +260,10 @@ const AdmissionForm = () => {
     }
  
     const BlurFatherPhoneNo = () => {
-        setFatherPhoneNoErrorMessage(IsPhoneNoValid(FatherPhoneNo))
+        setFatherPhoneNoErrorMessage(IsPhoneNoValid(FatherPhoneNo.trim()))
     }
     const BlurMotherPhoneNo = () => {
-        setMotherPhoneNoErrorMessage(IsPhoneNoValid(MotherPhoneNo))
+        setMotherPhoneNoErrorMessage(IsPhoneNoValid(MotherPhoneNo.trim()))
     }
     const BlurEmailId = () => {
         setEmailIdErrorMessage(IsEmailValid(EmailId.trim()))
@@ -297,84 +297,88 @@ const AdmissionForm = () => {
             returnVal = false
         } else {
             setClassErrorMessage("")
-        }
+        };
         if (StudentName === "") {
             setStudentNameErrorMessage("Please enter student's name")
             returnVal = false
         } else {
             setStudentNameErrorMessage("");
-        }
+        };
         if (BirthDate == "") {
             setBirthDateErrorMessage("Please enter student's Birthdate")
             returnVal = false
         } else {
             setBirthDateErrorMessage("");
-        }
+        };
         if (Gender === "0") {
             setGenderErrorMessage("Please select gender")
             returnVal = false
         } else {
             setGenderErrorMessage("");
-        }
+        };
         if (FatherName == "") {
             setFatherNameErrorMessage("Please enter Father name")
             returnVal = false
         } else {
             setFatherNameErrorMessage("");
-        }
+        };
         if (FatherPhoneNo == "") {
             setFatherPhoneNoErrorMessage("Please enter valid phone number")
             returnVal = false
-        } else {
-            setFatherPhoneNoErrorMessage("");
-        }
+        };
         if (MotherName == "") {
             setMotherNameErrorMessage("Please enter Mother name")
             returnVal = false
         } else {
             setMotherNameErrorMessage("");
-        }
+        };
         if (MotherPhoneNo == "") {
             setMotherPhoneNoErrorMessage("Please enter valid phone number")
             returnVal = false
-        } else {
-            setMotherPhoneNoErrorMessage("");
-        }
+        } ;
         if (StudentAddress == "") {
             setStudentAddressErrorMessage("Please enter Residential Address")
             returnVal = false
         } else {
             setStudentAddressErrorMessage("");
-        }
+        };
         if (SocietyName == "") {
             setSocietyNameErrorMessage("Please enter Society Name")
             returnVal = false
         } else {
             setSocietyNameErrorMessage("");
-        }
+        };
         if (EmailId == "") {
             setEmailIdErrorMessage("Please enter valid email-id")
             returnVal = false
-        } else {
-            setEmailIdErrorMessage("");
-        }
+        } ;
         if (PhotoFilePath == "") {
             setPhotoFileErrorMessage("Please attach Student's Photo")
             returnVal = false
        } else {
            setPhotoFileErrorMessage("");
-       }
+       };
        if (ReceiptFilePath == "") {
            setReceiptFileErrorMessage("Please attach Fees Receipt.")
            returnVal = false
        } else {
            setReceiptFileErrorMessage("");
-       }
-       if (EmailIdErrorMessage !=="" || PhotoFileErrorMessage !==""){
+       };
+       if (EmailIdErrorMessage !==""){
         returnVal = false
     } else{
         returnVal = true
-    }
+    };
+    if (FatherPhoneNoErrorMessage !==""){
+        returnVal = false
+    } else{
+        returnVal = true
+    };
+    if (MotherPhoneNoErrorMessage !==""){
+        returnVal = false
+    } else{
+        returnVal = true
+    };
        return returnVal
    }
 
