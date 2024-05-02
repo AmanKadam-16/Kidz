@@ -26,7 +26,7 @@ const AddEnquiry = () => {
     const [heading,setHeading] = useState('Enquiry Form')
     const [EditMode, setEditMode] = useState(false);
     const [ClassID, setClassID] = useState('0')
-    const [StudentName, setStudentName] = useState('')
+    const [StudentName, setStudentName] = useState('noname')
     const [Age, setAge] = useState('')
     const [BirthDate, setBirthDate] = useState('')
     const [GenderList, setGenderList] = useState([
@@ -250,83 +250,83 @@ const AddEnquiry = () => {
     console.log(Class)
 
     const IsFormValid = () => {
-        let returnVal = true
+        let isValid = true;
         if (ClassID === "0") {
             setClassErrorMessage("Please select student's class")
-            returnVal = false
+            isValid = false
         } else {
             setClassErrorMessage("")
         };
         if (StudentName === "") {
             setStudentNameErrorMessage("Please enter student's name")
-            returnVal = false
+            isValid = false
         } else {
             setStudentNameErrorMessage("");
         };
         if (BirthDate === "") {
             setBirthDateErrorMessage("Please enter student's Birthdate")
-            returnVal = false
+            isValid = false
         } else {
             setBirthDateErrorMessage("");
         };
         if (Gender === "0") {
             setGenderErrorMessage("Please select gender")
-            returnVal = false
+            isValid = false
         } else {
             setGenderErrorMessage("");
         };
         if (FatherName === "") {
             setFatherNameErrorMessage("Please enter Father name")
-            returnVal = false
+            isValid = false
         } else {
             setFatherNameErrorMessage("");
         };
         if (FatherPhoneNo === "") {
             setFatherPhoneNoErrorMessage("Please enter valid phone number")
-            returnVal = false
+            isValid = false
         };
         if (MotherName === "") {
             setMotherNameErrorMessage("Please enter Mother name")
-            returnVal = false
+            isValid = false
         } else {
             setMotherNameErrorMessage("");
         };
         if (MotherPhoneNo === "") {
             setMotherPhoneNoErrorMessage("Please enter valid phone number")
-            returnVal = false
+            isValid = false
         };
         if (StudentAddress === "") {
             setStudentAddressErrorMessage("Please enter Residential Address")
-            returnVal = false
+            isValid = false
         } else {
             setStudentAddressErrorMessage("");
         };
         if (SocietyName === "") {
             setSocietyNameErrorMessage("Please enter Society Name")
-            returnVal = false
+            isValid = false
         } else {
             setSocietyNameErrorMessage("");
         };
         if (EmailId === "") {
             setEmailIdErrorMessage("Please enter valid email-id")
-            returnVal = false
+            isValid = false
         };
         if (EmailIdErrorMessage !==""){
-            returnVal = false
+            isValid = false
         } else{
-            returnVal = true
+            isValid = true
         };
         if (FatherPhoneNoErrorMessage !==""){
-            returnVal = false
+            isValid = false
         } else{
-            returnVal = true
+            isValid = true
         };
         if (MotherPhoneNoErrorMessage !==""){
-            returnVal = false
+            isValid = false
         } else{
-            returnVal = true
+            isValid = true
         };
-        return returnVal
+        return isValid
     }
 
 
@@ -338,7 +338,8 @@ const AddEnquiry = () => {
     }
 
     const clickSubmit = () => {
-        if (IsFormValid()) {
+        const isFormValid = IsFormValid();
+        if (isFormValid) {
             const AddStudentBody: IAddEnquiryBody = {
                 ID: Id == undefined ? 0 : Number(Id),
                 ClassId: Number(ClassID),

@@ -96,12 +96,13 @@ const AdmissionForm = () => {
             setStudentAddress(EnquiryDetails.StudentAddress)
             setSocietyName(EnquiryDetails.SocietyName)
             setEmailId(EnquiryDetails.EmailId)
-            photoFileInputRef = EnquiryDetails.PhotoFileName
-            receiptFileInputRef = EnquiryDetails.ReceiptFileName
-            // setPhotoFileName(EnquiryDetails.PhotoFileName)
-            // setPhotoFilePath(EnquiryDetails.PhotoFilePath)
-            // setReceiptFileName(EnquiryDetails.ReceiptFileName)
-            // setReceiptFilePath(EnquiryDetails.ReceiptFilePath)
+            // photoFileInputRef = EnquiryDetails.PhotoFileName
+            // receiptFileInputRef = EnquiryDetails.ReceiptFileName
+            setPhotoFileName(EnquiryDetails.PhotoFileName)
+            setPhotoFilePath(EnquiryDetails.PhotoFilePath)
+            setReceiptFileName(EnquiryDetails.ReceiptFileName)
+            setReceiptFilePath(EnquiryDetails.ReceiptFilePath)
+            
         }
     }, [EnquiryDetails])
     console.log(EnquiryDetails)
@@ -119,13 +120,8 @@ const AdmissionForm = () => {
             } else if (AddAdmissionMsg === '1') {
                 toast.success('Admission Added Successfully.');
                 clickCancel();
-                // Clear the file input values
-                if (photoFileInputRef.current) {
-                    photoFileInputRef.current.value = '';
-                }
-                if (receiptFileInputRef.current) {
-                    receiptFileInputRef.current.value = '';
-                }
+          
+
             } else if (AddAdmissionMsg === '2') {
                 toast.success('Admission Details Updated Successfully.');
                 clickCancel();
@@ -197,6 +193,13 @@ const AdmissionForm = () => {
         setClassErrorMessage('')
         setPhotoFileErrorMessage('')
         setReceiptFileErrorMessage('')
+          // Clear the file input values
+  if (photoFileInputRef.current) {
+    photoFileInputRef.current.value = '';
+  }
+  if (receiptFileInputRef.current) {
+    receiptFileInputRef.current.value = '';
+  }
     }
  
  
@@ -289,98 +292,122 @@ const AdmissionForm = () => {
         console.log('Receipt File Path:', URL.createObjectURL(file));
  
     }
- 
     const IsFormValid = () => {
-        let returnVal = true
+        let isValid = true;
+      
         if (ClassID === "0") {
-            setClassErrorMessage("Please select student's class")
-            returnVal = false
+          setClassErrorMessage("Please select student's class");
+          isValid = false;
         } else {
-            setClassErrorMessage("")
-        };
+          setClassErrorMessage("");
+        }
+      
         if (StudentName === "") {
-            setStudentNameErrorMessage("Please enter student's name")
-            returnVal = false
+          setStudentNameErrorMessage("Please enter student's name");
+          isValid = false;
         } else {
-            setStudentNameErrorMessage("");
-        };
-        if (BirthDate == "") {
-            setBirthDateErrorMessage("Please enter student's Birthdate")
-            returnVal = false
+          setStudentNameErrorMessage("");
+        }
+      
+        if (BirthDate === "") {
+          setBirthDateErrorMessage("Please enter student's Birthdate");
+          isValid = false;
         } else {
-            setBirthDateErrorMessage("");
-        };
+          setBirthDateErrorMessage("");
+        }
+      
         if (Gender === "0") {
-            setGenderErrorMessage("Please select gender")
-            returnVal = false
+          setGenderErrorMessage("Please select gender");
+          isValid = false;
         } else {
-            setGenderErrorMessage("");
-        };
-        if (FatherName == "") {
-            setFatherNameErrorMessage("Please enter Father name")
-            returnVal = false
+          setGenderErrorMessage("");
+        }
+      
+        if (FatherName === "") {
+          setFatherNameErrorMessage("Please enter Father name");
+          isValid = false;
         } else {
-            setFatherNameErrorMessage("");
-        };
-        if (FatherPhoneNo == "") {
-            setFatherPhoneNoErrorMessage("Please enter valid phone number")
-            returnVal = false
-        };
-        if (MotherName == "") {
-            setMotherNameErrorMessage("Please enter Mother name")
-            returnVal = false
+          setFatherNameErrorMessage("");
+        }
+      
+        if (FatherPhoneNo === "") {
+          setFatherPhoneNoErrorMessage("Please enter valid phone number");
+          isValid = false;
+        }
+      
+        if (MotherName === "") {
+          setMotherNameErrorMessage("Please enter Mother name");
+          isValid = false;
         } else {
-            setMotherNameErrorMessage("");
-        };
-        if (MotherPhoneNo == "") {
-            setMotherPhoneNoErrorMessage("Please enter valid phone number")
-            returnVal = false
-        } ;
-        if (StudentAddress == "") {
-            setStudentAddressErrorMessage("Please enter Residential Address")
-            returnVal = false
+          setMotherNameErrorMessage("");
+        }
+      
+        if (MotherPhoneNo === "") {
+          setMotherPhoneNoErrorMessage("Please enter valid phone number");
+          isValid = false;
+        }
+      
+        if (StudentAddress === "") {
+          setStudentAddressErrorMessage("Please enter Residential Address");
+          isValid = false;
         } else {
-            setStudentAddressErrorMessage("");
-        };
-        if (SocietyName == "") {
-            setSocietyNameErrorMessage("Please enter Society Name")
-            returnVal = false
+          setStudentAddressErrorMessage("");
+        }
+      
+        if (SocietyName === "") {
+          setSocietyNameErrorMessage("Please enter Society Name");
+          isValid = false;
         } else {
-            setSocietyNameErrorMessage("");
-        };
-        if (EmailId == "") {
-            setEmailIdErrorMessage("Please enter valid email-id")
-            returnVal = false
-        } ;
-        if (PhotoFilePath == "") {
-            setPhotoFileErrorMessage("Please attach Student's Photo")
-            returnVal = false
-       } else {
-           setPhotoFileErrorMessage("");
-       };
-       if (ReceiptFilePath == "") {
-           setReceiptFileErrorMessage("Please attach Fees Receipt.")
-           returnVal = false
-       } else {
-           setReceiptFileErrorMessage("");
-       };
-       if (EmailIdErrorMessage !==""){
-        returnVal = false
-    } else{
-        returnVal = true
-    };
-    if (FatherPhoneNoErrorMessage !==""){
-        returnVal = false
-    } else{
-        returnVal = true
-    };
-    if (MotherPhoneNoErrorMessage !==""){
-        returnVal = false
-    } else{
-        returnVal = true
-    };
-       return returnVal
-   }
+          setSocietyNameErrorMessage("");
+        }
+      
+        if (EmailId === "") {
+          setEmailIdErrorMessage("Please enter valid email-id");
+          isValid = false;
+        }
+      
+        // if (ReceiptFilePath === "") {
+        //   setReceiptFileErrorMessage("Please attach Fees Receipt.");
+        //   isValid = false;
+        // } else {
+        //     setReceiptFileErrorMessage("")
+        // }
+      
+        // if (PhotoFilePath === "") {
+        //   setPhotoFileErrorMessage("Please attach Student's Photo");
+        //   isValid = false;
+        // } else {
+        //     setPhotoFileErrorMessage("")
+        // }
+      
+        if (EmailIdErrorMessage !== "") {
+          isValid = false;
+        }
+      
+        if (FatherPhoneNoErrorMessage !== "") {
+          isValid = false;
+        }
+      
+        if (MotherPhoneNoErrorMessage !== "") {
+          isValid = false;
+        }
+      
+        if (photoFileInputRef.current.value == '') {
+            setPhotoFileErrorMessage("Please attach Student's Photo");
+          isValid = false
+        } else {
+            setPhotoFileErrorMessage("")
+        }
+      
+        if (receiptFileInputRef.current.value == '') {
+            setReceiptFileErrorMessage("Please attach Fees Receipt.");
+          isValid = false
+        } else {
+            setReceiptFileErrorMessage("")
+        }
+      
+        return isValid;
+      };
 
 
    const onEdit = () => {
@@ -391,33 +418,33 @@ const AdmissionForm = () => {
    }
 
    const clickSubmit = () => {
-       if (IsFormValid()) {
-           const AddStudentBody: IAddAdmissionBody = {
-               ID: Id == undefined ? 0 : Number(Id),
-               ClassId: Number(ClassID),
-               StudentName: StudentName,
-               Birthdate: BirthDate,
-               Gender: Number(Gender),
-               FatherName: FatherName,
-               FatherPhoneNo: FatherPhoneNo,
-               MotherName: MotherName,
-               MotherPhoneNo: MotherPhoneNo,
-               StudentAddress: StudentAddress,
-               SocietyName: SocietyName,
-               EmailId: EmailId.trim(),
-               PhotoFileName: PhotoFileName,
-               PhotoFilePath: PhotoFilePath,
-               ReceiptFileName: ReceiptFileName,
-               ReceiptFilePath: ReceiptFilePath
-           }
-           dispatch(AddAdmissionDetails(AddStudentBody))
-           setClear(true)
-           console.log(AddStudentBody)
-       }else {
-        // If the form is not valid, show an error message
-        toast.error('Please fill all required fields correctly.');
-    }
-   }
+  const isFormValid = IsFormValid();
+  if (isFormValid) {
+    const AddStudentBody: IAddAdmissionBody = {
+      ID: Id == undefined ? 0 : Number(Id),
+      ClassId: Number(ClassID),
+      StudentName: StudentName,
+      Birthdate: BirthDate,
+      Gender: Number(Gender),
+      FatherName: FatherName,
+      FatherPhoneNo: FatherPhoneNo,
+      MotherName: MotherName,
+      MotherPhoneNo: MotherPhoneNo,
+      StudentAddress: StudentAddress,
+      SocietyName: SocietyName,
+      EmailId: EmailId.trim(),
+      PhotoFileName: PhotoFileName,
+      PhotoFilePath: PhotoFilePath,
+      ReceiptFileName: ReceiptFileName,
+      ReceiptFilePath: ReceiptFilePath
+    };
+    dispatch(AddAdmissionDetails(AddStudentBody));
+    setClear(true);
+    console.log(AddStudentBody);
+  } else {
+    toast.error('Please fill all required fields correctly.');
+  }
+};
 
    const VisuallyHiddenInput = styled('input')({
        clip: 'rect(0 0 0 0)',
@@ -568,8 +595,8 @@ const AdmissionForm = () => {
                                        <Typography>Receipt *</Typography>
 
                                        <Box component="section" sx={{ p: 1 }}>
-                                           <input type="file" accept=".png,.jpg"
-                                               onChange={handleReceiptFileChange} ref={receiptFileInputRef} required />
+                                           <input type="file" ref={receiptFileInputRef} accept=".png,.jpg" 
+                                               onChange={handleReceiptFileChange}  />
                                        </Box>
                                        <ErrorDetail>{ReceiptFileErrorMessage}</ErrorDetail>
                                    </Grid>
@@ -577,8 +604,8 @@ const AdmissionForm = () => {
                                        <Typography>Student's Photo *</Typography>
 
                                        <Box component="section" sx={{ p: 1 }}>
-                                           <input type="file" accept=".png,.jpg"
-                                               onChange={handlePhotoFileChange} ref={photoFileInputRef} required />
+                                           <input type="file" ref={photoFileInputRef} accept=".png,.jpg"
+                                               onChange={handlePhotoFileChange}   />
                                        </Box>
                                        <ErrorDetail>{PhotoFileErrorMessage}</ErrorDetail>
 
