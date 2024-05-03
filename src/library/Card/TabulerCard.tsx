@@ -21,29 +21,27 @@ function TabulerCard({item ,clickEdit ,Submit ,Delete ,Submit1=undefined}) {
           <Card sx={{ mb: 1 }}  >
             <Grid container style={{ display: "flex", alignItems: "center" }}>
               <Hidden mdDown>
-              <Tooltip title={item.Text2} placement="left-start">
-           <Typography px={3} sx={{overflow:"hidden" ,whiteSpace:"nowrap" ,textOverflow:"ellipsis", width:"300px"}}>{item.Text2}</Typography>
+              <Tooltip title={item.Text1} placement="left-start">
+           <Typography px={3} sx={{overflow:"hidden" ,whiteSpace:"nowrap" ,textOverflow:"ellipsis", width:"300px"}}>{item.Text1}</Typography>
            {/* <Typography dangerouslySetInnerHTML={{ __html: item.Text2 }} px={3} sx={{overflow:"hidden" ,whiteSpace:"nowrap" ,textOverflow:"ellipsis", width:"300px"}}></Typography> */}
             </Tooltip>
           
               </Hidden>
           
               <Grid item xs={3} md={2}>
-                <Typography>{item.Text1}</Typography>
+                <Typography>{item.Text2}</Typography>
               </Grid>
               <Grid item xs={4.5} md={2}>
                 <Typography>{item.Text3}</Typography>
               </Grid>
           
-              <Grid item xs={1.5} md={1}>
-                {
-                  !item.IsSubmited && <SendIcon color={'info'}  onClick={() => Submit(item.Id)} />
-                }
+              <Grid item xs={1.5} md={1.5}>
+            
               </Grid>
-              <Grid item xs={1.5} md={1}>
+              <Grid item xs={1.5} md={1.5}>
                 <EditIcon color={'success'} onClick={() => clickEdit(item.Id)} />
               </Grid>
-              <Grid item xs={1.5} md={1}>
+              <Grid item xs={1.5} md={1.5}>
                 <DeleteIcon  color={'error'} onClick={() => Delete(item.Id)} />
               </Grid>
               {/* {Submit1 &&  <Grid item xs={2} md={1}>

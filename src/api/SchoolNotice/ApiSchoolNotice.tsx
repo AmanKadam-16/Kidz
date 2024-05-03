@@ -8,7 +8,7 @@ const AddSchoolNoticeApi = (data: IAddSchoolNotice) => {
     return http.post<IAddSchoolNotice[]>('GetSchoolNoticeList'); // Assuming 'GetEnquiryList' is the endpoint for fetching the enquiry list
   };
   const GetSchoolNoticeDetailsApi = (data: IGetSchoolNoticeDetails) => {
-    return http.post<IAddSchoolNotice>('GetNoticeDetailsById', data);
+    return http.post<IAddSchoolNotice>('GetNoticeDetailsByID', data);
   };
 
   const DeleteSchoolNoticeApi = (data: IGetSchoolNoticeDetails) => {

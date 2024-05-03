@@ -7,6 +7,7 @@ export interface IAddSchoolNotice{
     NoticeFilePath? : string
     BinaryData : string
     NoticeDate: string
+    ClassId?: number
     ClassName? : string
 };
 

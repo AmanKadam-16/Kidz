@@ -135,6 +135,10 @@ const studentRoutes = [
     element:<AddSchoolNotice/>
   },
   {
+    path:'AddSchoolNotice/:Id',
+    element:<AddSchoolNotice/>
+  },
+  {
     path:'AddSchoolNoticeList',
     element:<AddSchoolNoticeList />
   },

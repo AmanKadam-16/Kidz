@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react'
 import PageHeader from 'src/library/heading/pageHeader'
 import { Card, Container, TextField, Box, Button, Typography, Grid } from '@mui/material'
+import CalendarField from "src/libraries/Training/CalendarField";
 
 import Dropdown from "src/libraries/Training/Dropdown";
 import { useDispatch } from 'react-redux';
@@ -21,12 +22,16 @@ import Icon1 from 'src/library/icon/icon1';
 import { ButtonPrimary } from 'src/library/StyledComponents/CommonStyled';
 import SendIcon from '@mui/icons-material/Send';
 import { getClass } from 'src/requests/Enquiry/RequestEnquiryList';
-import { AddSchoolNoticeDetails, resetSchoolNoticeDetails } from 'src/requests/SchoolNotice1/RequestSchoolNotice';
+import { AddSchoolNoticeDetails, getSchoolNoticeDetails, resetSchoolNoticeDetails } from 'src/requests/SchoolNotice1/RequestSchoolNotice';
+import { number } from 'prop-types';
+import { getCalendarFormat } from '../Common/utils1';
 
 function AddSchoolNotice() {
   const Class = useSelector((state: RootState) => state.Enquiry.Class);
   const AddSchoolNoticeMsg = useSelector((state: RootState) => state.SchoolNotice.AddSchoolNoticeMsg)
+  const SchoolNoticeDetails = useSelector((state: RootState) => state.SchoolNotice.SchoolNoticeDetails)
 
+  const [Id,setID] = useState('')
   const [ClassID, setClassID] = useState('0');
   const [Title, setTitle] = useState('');
   const aRef = useRef(null);
@@ -42,7 +47,6 @@ function AddSchoolNotice() {
 
 
  const dispatch = useDispatch();
-
  useEffect(() => {
   dispatch(getClass())
 }, [dispatch]);
@@ -52,6 +56,23 @@ useEffect(()=>{
 dispatch(resetSchoolNoticeDetails())
 }
 },[AddSchoolNoticeMsg])
+
+useEffect(()=>{
+if (Id !== ''){
+  dispatch(getSchoolNoticeDetails({ID:Number(Id)}))
+}
+},[Id])
+
+useEffect(()=>{
+if(SchoolNoticeDetails !==  null){
+  setClassID(SchoolNoticeDetails.ClassId)
+  setTitle(SchoolNoticeDetails.NoticeTitle)
+  setNoticeDescription(SchoolNoticeDetails.NoticeDescription)
+  setSelectDate(getCalendarFormat(SchoolNoticeDetails.NoticeDate))
+  setFileName(SchoolNoticeDetails.NoticeFileName)
+}
+console.log(SchoolNoticeDetails)
+},[SchoolNoticeDetails])
 
 const clickClass = (value) => {
   setClassID(value);
@@ -71,8 +92,9 @@ const changeFile = async (e) => {
     }
   }
 }
-
-
+if (Id !== ''){
+console.log(Id)
+}
 const IsFormValid = () => {
   let isValid = true;
   if (ClassID === "0") {
@@ -89,7 +111,7 @@ const clickSubmit = () => {
   const isFormValid = IsFormValid();
   if (isFormValid) {
       const AddSchoolNotice: IAddSchoolNotice = {
-          ID: 0 ,
+          ID: Id == '' ? 0 : Number(Id),
           ClassIds: ClassID,
           NoticeTitle: Title,
           NoticeDescription: NoticeDescription,
@@ -108,7 +130,9 @@ const clickSubmit = () => {
   }
 
 }
-
+const clickEdit = (Id) =>{
+  setID(Id)
+}
   return (
    <>
     <PageHeader heading={'Add School Notice'} />
@@ -146,6 +170,7 @@ const clickSubmit = () => {
         <Box mt={2}>
           <input type="file" ref={aRef} accept=".png,.jpg,.jpeg,.bmp" onChange={changeFile} ></input>
         </Box>
+        {fileName}
         {/* <Box className={classes.iIconSupport}> */}
         <Box>
           <Icon1 Note={"Supports only " + validFiles.join(', ') + " files types up to 5 MB"} />
@@ -160,7 +185,7 @@ const clickSubmit = () => {
       </Card>
       <br></br>
       {
-
+<AddSchoolNoticeList SchoolNotice={clickEdit} />
         // <AddSchoolNoticeList clickEdit={clickEdit} />
       }
 
