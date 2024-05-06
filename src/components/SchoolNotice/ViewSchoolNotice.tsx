@@ -10,6 +10,7 @@ import { Typography, Card, Container } from '@mui/material';
 import { useParams } from 'react-router';
 import { getDateFormatted } from '../Common/util';
 import axios from 'axios';
+import { getSchoolNoticeDetails } from 'src/requests/SchoolNotice1/RequestSchoolNotice';
 //import fileDownload from 'js-file-download'
 //import MyPDF from '../path/to/file.pdf';
 
@@ -17,39 +18,62 @@ import axios from 'axios';
 
 
 const ViewSchoolNotice = () => {
+  const [NoticeDescription, setNoticeDescription] = useState('');
+  const [Title, setTitle] = useState('');
+  const [NoticeFileName, setNoticeFileName] = useState('');
+
+
+
   const dispatch = useDispatch();
   const [File, setFile] = useState('')
-  const ViewNotice: any = useSelector(
-    (state: RootState) => state.ViewSchoolNotice.ViewNotice
-  );
+  // const ViewNotice: any = useSelector(
+  //   (state: RootState) => state.ViewSchoolNotice.ViewNotice
+  // );
+  const SchoolNoticeDetails = useSelector((state: RootState) => state.SchoolNotice.SchoolNoticeDetails)
+  useEffect(()=>{
+    if(SchoolNoticeDetails!=null){
+      setNoticeDescription(SchoolNoticeDetails.NoticeDescription)
+      setTitle(SchoolNoticeDetails.NoticeTitle)
+      setNoticeFileName(SchoolNoticeDetails.NoticeFileName)
+    }
+    },[SchoolNoticeDetails])
   const { Id } = useParams();
-  console.log(ViewNotice, "ViewNotice")
-  const GetViewSchoolNoticeBody: IGetViewSchoolNoticeListBody =
-  {
-    Id: parseInt(Id)
-  }
+  console.log(SchoolNoticeDetails, "ViewNotice")
+  // const GetViewSchoolNoticeBody: IGetViewSchoolNoticeListBody =
+  // {
+  //     Id : parseInt(Id)
+  // }
+  // useEffect(() => {
+  //   dispatch(GetViewSchoolNotice(GetViewSchoolNoticeBody));
+  // }, [])
   useEffect(() => {
-    dispatch(GetViewSchoolNotice(GetViewSchoolNoticeBody));
-  }, [])
-  
+    if (Id !== '') {
+      dispatch(getSchoolNoticeDetails({ ID:parseInt(Id) }))
+    }
+  }, [Id])
   
   return (
     <Container>
       <PageHeader heading={'View Notice'} />
       <BackButton FromRoute={'/Student/SchoolNotice'} />
-      {ViewNotice.map((item, i) => (
-        <div key={i}>
+    
+        <div>
           <Card>
-            <Typography dangerouslySetInnerHTML={{ __html: item.NoticeDescription }} mt={-2}></Typography>
-            <Typography mt={-1.5}>{getDateFormatted(item.AssignDate)}</Typography>
-            {item.Attachment !== "" &&
+         <h1>Title: {Title}</h1>
+          <h3>Description: </h3>
+            <Typography  dangerouslySetInnerHTML={{ __html: NoticeDescription }} />
+
+            {/* <Typography mt={-1.5}>{getDateFormatted(item.NoticeDate)}</Typography> */}
+            {/* {item.Attachment !== "" &&
               <a target="_blank" rel="noreferrer" href={'/documents/' + item.Attachment} >Attachment</a>
-            }
-          </Card>
+            } */}
+          </Card> <br />
+          <Card><h3>Attachment: </h3>{NoticeFileName}</Card>
         </div>
-      ))}
+   
 
     </Container>
+   
   )
 }
 

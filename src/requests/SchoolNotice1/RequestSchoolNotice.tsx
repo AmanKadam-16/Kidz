@@ -146,7 +146,6 @@ export const getSchoolNoticeDetails =
         async (dispatch) => {
             dispatch(SchoolNoticeSlice1.actions.getLoading(true));
             const response = await SchoolNoticeApi.GetSchoolNoticeDetailsApi(data);
-
             dispatch(SchoolNoticeSlice1.actions.getSchoolNoticeDetails(response.data));
         };
 
