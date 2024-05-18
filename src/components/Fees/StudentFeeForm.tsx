@@ -19,6 +19,14 @@ import { toast } from "react-toastify"
 
 import { ButtonPrimary } from "src/library/StyledComponents/CommonStyled"
 const StudentFeeForm = () => {
+    const { Id } = useParams();
+    const [AcademicYear, setAcademicYear] = useState("")
+    const [FeeName, setFeeName] = useState("")
+    const [FeeType, setFeeType] = useState("")
+    const [ClassName , setClassName] = useState("")
+    const [Amount, setAmount] = useState("")
+    const [EndDate, setEndDate] = useState('')
+    const [Student, setStudent ] = useState('')
 
     return (
         <>
@@ -48,12 +56,18 @@ const StudentFeeForm = () => {
                                         ClickItem={undefined}
                                         ErrorMessage={undefined} />
                                 </Grid>
-                                <Grid item xs={6}>
+                                <Grid item xs={6} >
                                     <InputField Item={undefined} Label={'Fee Type'}
                                         ClickItem={undefined}
                                         ErrorMessage={undefined} />
                                 </Grid>
-                                <Grid item xs={6} sm={6}  sx={{ mt:0.5 }}>
+  
+                                    <Grid item xs={6}>
+                                    <InputField Item={undefined} Label={'Amount'}
+                                        ClickItem={undefined}
+                                        ErrorMessage={undefined} />
+                                </Grid>
+                                <Grid item xs={6} sm={6}  >
                                         <CalendarField
                                             Item={undefined}
                                             Label="End Date *"
@@ -62,12 +76,9 @@ const StudentFeeForm = () => {
                                         />
 
                                     </Grid>
-                                    <Grid item xs={6}>
-                                    <InputField Item={undefined} Label={'Amount'}
-                                        ClickItem={undefined}
-                                        ErrorMessage={undefined} />
+                                <Grid item xs={6}>
+                                
                                 </Grid>
-
                                 <Grid item xs={6}>
                                     {/* <ButtonField Label={'Submit'} ClickItem={clickSubmit} /> &nbsp;&nbsp; */}
                                     <ButtonPrimary onClick={undefined} >Submit&nbsp;<SendIcon fontSize="small" /></ButtonPrimary>

@@ -182,6 +182,14 @@ const studentRoutes = [
   {
     path: 'ClassStudentsFeeDetails',
     element: <ClassStudentsFeeDetails />
+  },
+  {
+    path: 'AddFeeForm/:Id',
+    element: <AddFeeForm />
+  },
+  {
+    path: 'StudentFeeForm/:Id',
+    element: <StudentFeeForm />
   }
   
   

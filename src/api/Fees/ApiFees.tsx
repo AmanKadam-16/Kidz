@@ -6,6 +6,9 @@ import http from '../../utils/http-common1';
 const GetAcademicYearApi = () => {
   return http.post<IAddFeesBody[]>('GetAcademicYear');
 };
+const GetStudentFeeListApi = () => {
+  return http.post<IAddFeesBody[]>('GetStudentFeeList');
+};
 const GetFeeNameApi = () => {
     return http.post<IAddFeesBody[]>('GetFeeName');
   };
@@ -28,12 +31,18 @@ const GetFeeNameApi = () => {
     return http.post<string>('DeleteFeeDetails', data); 
   };
 
+  const GetFeeTypeApi = (data: IGetFeesDetailsBody) => {
+    return http.post<IGetFeesDetailsBody[]>('GetFeeType',data);
+  };
+
 const FeesApi = {
     GetAcademicYearApi,
     GetFeeNameApi,
     AddFeeDetailsApi,
     GetClassFeeListApi,
     GetClassFeeDetailsForEditApi,
-    DeleteFeeDetailsApi
+    DeleteFeeDetailsApi,
+    GetFeeTypeApi,
+    GetStudentFeeListApi
 };
 export default FeesApi;

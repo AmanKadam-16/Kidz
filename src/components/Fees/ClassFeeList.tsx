@@ -52,13 +52,11 @@ const ClassFeeList = ({ClassFeeId}) => {
         ClassFeeId(value.Id)
     
     } else if (value.Action === "Remove") {
-        if (window.confirm("Are you sure you want to delete this FollowUp Detail?")) {
+        if (window.confirm("Are you sure you want to delete this Fee Detail?")) {
        dispatch(DeleteFeeDetails({ID:Number(value.Id)}))
         }
     }
   }
-  console.log(ClassFeeList)
-console.log(paginatedList)
   return (
     <>
     <Container>

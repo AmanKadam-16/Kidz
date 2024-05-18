@@ -8,6 +8,7 @@ export interface IAddFeesBody {
     FeeName? : string,
     FeeType? : string,
     StudentId? : number,
+    StudentName?: string,
     ClassName?: string,
     ClassId?: number,
     Date?: string
@@ -15,5 +16,8 @@ export interface IAddFeesBody {
 }
 
 export interface IGetFeesDetailsBody {
-    ID: number
+    ID?: number,
+    ClassId?: number,
+    FeeNameId? : number,
+    FeeType? : string
 }

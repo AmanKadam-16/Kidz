@@ -9,11 +9,13 @@ const FeesSlice = createSlice({
     initialState: {
         AcademicYear: [],
         FeeName: [],
+        FeeType: [],
         ClassFeeList: [],
         AddFeeDetailsMsg: '',
         FeeDetails: null,
         updateFeeDetailsMsg: '',
         deleteFeeDetailsMsg: '',
+        StudentFeeList: [],
         Loading: true
     },
     reducers: {
@@ -22,7 +24,10 @@ const FeesSlice = createSlice({
             state.Loading = false;
             state.AcademicYear = action.payload;
         },
-
+        getStudentFeeList(state, action) {
+            state.Loading = false;
+            state.StudentFeeList = action.payload;
+        },
         getClassFeeList(state, action) {
             state.Loading = false;
             state.ClassFeeList = action.payload;
@@ -58,6 +63,10 @@ const FeesSlice = createSlice({
         getLoading(state, action) {
             state.Loading = true;
         },
+        getFeeTypeList(state, action) {
+            state.Loading = false;
+            state.FeeType = action.payload;
+        }
     }
 });
 
@@ -75,6 +84,27 @@ export const getAcademicYear =
                 };
             });
             dispatch(FeesSlice.actions.getAcademicYear(responseData));
+        };
+
+        export const getStudentFeeList =
+    (): AppThunk =>
+        async (dispatch) => {
+            dispatch(FeesSlice.actions.getLoading(true));
+            const response = await FeesApi.GetStudentFeeListApi();
+            const responseData = response.data.map((Item, i) => {
+                return {
+                    Id: Item.ID,
+                    Text1: Item.StudentName,
+                    Text2: Item.ClassName,
+                    Text3: Item.AcademicYear,
+                    Text4: Item.FeeType,
+                    Text5: Item.FeeName,
+                    Text6: getDateFormatted(Item.EndDate),
+                    Text7: Item.Amount
+
+                };
+            });
+            dispatch(FeesSlice.actions.getStudentFeeList(responseData));
         };
 
 export const getFeeName =
@@ -138,7 +168,7 @@ export const getClassFeeList =
             dispatch(FeesSlice.actions.getClassFeeList(responseData));
         };
 
-        export const getFeeDetails =
+export const getFeeDetails =
     (data: IGetFeesDetailsBody): AppThunk =>
         async (dispatch) => {
             dispatch(FeesSlice.actions.getLoading(true));
@@ -147,17 +177,32 @@ export const getClassFeeList =
             dispatch(FeesSlice.actions.getFeeDetails(response.data));
         };
 
-        export const DeleteFeeDetails =
+export const DeleteFeeDetails =
     (data: IGetFeesDetailsBody): AppThunk =>
         async (dispatch) => {
             dispatch(FeesSlice.actions.getLoading(true));
             const response = await FeesApi.DeleteFeeDetailsApi(data);
             dispatch(FeesSlice.actions.getDeleteFeeDetailsMsg(response.data));
         };
-        export const resetDeleteFeeDetails =
+export const resetDeleteFeeDetails =
     (): AppThunk =>
         async (dispatch) => {
             dispatch(FeesSlice.actions.resetDeleteFeeDetailsMsg());
+        };
+
+export const getFeeTypeList =
+    (data: IGetFeesDetailsBody): AppThunk =>
+        async (dispatch) => {
+            dispatch(FeesSlice.actions.getLoading(true));
+            const response = await FeesApi.GetFeeTypeApi(data);
+            const responseData = response.data.map((Item, i) => {
+                return {
+                    Id: i,
+                    Name: Item.FeeType,
+                    Value: i.toString()
+                };
+            });
+            dispatch(FeesSlice.actions.getFeeTypeList(responseData));
         };
 
 export default FeesSlice.reducer;
