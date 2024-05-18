@@ -13,9 +13,11 @@ const FeesSlice = createSlice({
         ClassFeeList: [],
         AddFeeDetailsMsg: '',
         FeeDetails: null,
+        StudentFeeDetails: null,
         updateFeeDetailsMsg: '',
         deleteFeeDetailsMsg: '',
         StudentFeeList: [],
+        IStudentFeeList: [],
         Loading: true
     },
     reducers: {
@@ -27,6 +29,10 @@ const FeesSlice = createSlice({
         getStudentFeeList(state, action) {
             state.Loading = false;
             state.StudentFeeList = action.payload;
+        },
+        getIStudentFeeList(state, action) {
+            state.Loading = false;
+            state.IStudentFeeList = action.payload;
         },
         getClassFeeList(state, action) {
             state.Loading = false;
@@ -40,13 +46,29 @@ const FeesSlice = createSlice({
             state.Loading = false;
             state.AddFeeDetailsMsg = action.payload;
         },
+        getUpdateIStudentFeeDetailsMsg(state, action) {
+            state.Loading = false;
+            state.updateFeeDetailsMsg = action.payload;
+        },
         resetAddFeesDetailsMsg(state) {
             state.Loading = false;
             state.AddFeeDetailsMsg = "";
         },
+        resetUpdateIStudentFeeDetailsMsg(state) {
+            state.Loading = false;
+            state.updateFeeDetailsMsg = "";
+        },
         getFeeDetails(state, action) {
             state.Loading = false;
             state.FeeDetails = action.payload;
+        },
+        getStudentFeeDetails(state, action) {
+            state.Loading = false;
+            state.StudentFeeDetails = action.payload;
+        },
+        resetStudentFeeDetails(state) {
+            state.Loading = false;
+            state.StudentFeeDetails = null;
         },
         resetFeeDetails(state) {
             state.Loading = false;
@@ -86,7 +108,7 @@ export const getAcademicYear =
             dispatch(FeesSlice.actions.getAcademicYear(responseData));
         };
 
-        export const getStudentFeeList =
+export const getStudentFeeList =
     (): AppThunk =>
         async (dispatch) => {
             dispatch(FeesSlice.actions.getLoading(true));
@@ -129,10 +151,25 @@ export const AddFeeDetails =
             dispatch(FeesSlice.actions.getAddFeeDetailsMsg(response.data));
         };
 
+export const UpdateIStudentFeeDetails =
+    (data: IAddFeesBody): AppThunk =>
+        async (dispatch) => {
+            dispatch(FeesSlice.actions.getLoading(true));
+            const response = await FeesApi.UpdateIStudentFeeDetailsApi(data);
+            dispatch(FeesSlice.actions.getUpdateIStudentFeeDetailsMsg(response.data));
+        };
+
 export const resetAddFeesDetailsMsg =
     (): AppThunk =>
         async (dispatch) => {
             dispatch(FeesSlice.actions.resetAddFeesDetailsMsg());
+        };
+
+
+export const resetUpdateIStudentFeeDetailsMsg =
+    (): AppThunk =>
+        async (dispatch) => {
+            dispatch(FeesSlice.actions.resetUpdateIStudentFeeDetailsMsg());
         };
 
 export const resetFeeDetails =
@@ -177,6 +214,15 @@ export const getFeeDetails =
             dispatch(FeesSlice.actions.getFeeDetails(response.data));
         };
 
+export const getStudentFeeDetails =
+    (data: IGetFeesDetailsBody): AppThunk =>
+        async (dispatch) => {
+            dispatch(FeesSlice.actions.getLoading(true));
+            const response = await FeesApi.GetStudentFeeDetailsForEditApi(data);
+
+            dispatch(FeesSlice.actions.getStudentFeeDetails(response.data));
+        };
+
 export const DeleteFeeDetails =
     (data: IGetFeesDetailsBody): AppThunk =>
         async (dispatch) => {
@@ -203,6 +249,24 @@ export const getFeeTypeList =
                 };
             });
             dispatch(FeesSlice.actions.getFeeTypeList(responseData));
+        };
+
+export const getIStudentFeeList =
+    (data: IGetFeesDetailsBody): AppThunk =>
+        async (dispatch) => {
+            dispatch(FeesSlice.actions.getLoading(true));
+            const response = await FeesApi.GetIStudentFeeListApi(data);
+            const responseData = response.data.map((Item, i) => {
+                return {
+                    Id: Item.ID,
+                    Text1: Item.AcademicYear,
+                    Text2: Item.FeeName,
+                    Text3: Item.FeeType,
+                    Text4: getDateFormatted(Item.EndDate),
+                    Text5: Item.Amount
+                };
+            });
+            dispatch(FeesSlice.actions.getIStudentFeeList(responseData));
         };
 
 export default FeesSlice.reducer;

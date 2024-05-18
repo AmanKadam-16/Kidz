@@ -20,12 +20,18 @@ const GetFeeNameApi = () => {
   const AddFeeDetailsApi = (data: IAddFeesBody) => {
     return http.post<string>('AddFeeDetails', data);
   };
+  const UpdateIStudentFeeDetailsApi = (data: IAddFeesBody) => {
+    return http.post<string>('UpdateIStudentFeeDetails', data);
+  };
 
 
   const GetClassFeeDetailsForEditApi = (data: IGetFeesDetailsBody) => {
     return http.post<IGetFeesDetailsBody>('GetClassFeeDetailsForEdit', data);
   };
 
+  const GetStudentFeeDetailsForEditApi = (data: IGetFeesDetailsBody) => {
+    return http.post<IGetFeesDetailsBody>('GetStudentFeeDetailsForEdit', data);
+  };
 
   const DeleteFeeDetailsApi = (data: IGetFeesDetailsBody) => {
     return http.post<string>('DeleteFeeDetails', data); 
@@ -33,6 +39,10 @@ const GetFeeNameApi = () => {
 
   const GetFeeTypeApi = (data: IGetFeesDetailsBody) => {
     return http.post<IGetFeesDetailsBody[]>('GetFeeType',data);
+  };
+
+  const GetIStudentFeeListApi = (data: IGetFeesDetailsBody) => {
+    return http.post<IGetFeesDetailsBody[]>('GetIStudentFeeList',data);
   };
 
 const FeesApi = {
@@ -43,6 +53,9 @@ const FeesApi = {
     GetClassFeeDetailsForEditApi,
     DeleteFeeDetailsApi,
     GetFeeTypeApi,
-    GetStudentFeeListApi
+    UpdateIStudentFeeDetailsApi,
+    GetStudentFeeListApi,
+    GetStudentFeeDetailsForEditApi,
+    GetIStudentFeeListApi
 };
 export default FeesApi;
