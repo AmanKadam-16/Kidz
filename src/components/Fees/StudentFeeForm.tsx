@@ -50,6 +50,15 @@ const clickCancel= () =>{
     setEndDate('')
     setAcademicYear('')
 }
+const clickClear= () =>{
+    // setClassName('')
+    // setStudent('')
+    // setFeeType('')
+    // setFeeName('')
+    setAmount('')
+    setEndDate('')
+    // setAcademicYear('')
+}
 
 useEffect(()=>{
     if(Id != ''){
@@ -214,7 +223,7 @@ const clickSubmit = () =>{
 
                                 </Grid>
                                 <Grid item xs={6}>
-                                    <ButtonPrimary onClick={clickCancel} >Clear</ButtonPrimary>
+                                    <ButtonPrimary onClick={clickClear} >Clear</ButtonPrimary>
 
                                     {/* <ButtonField Label={'Cancel'} ClickItem={undefined} /> */}
                                 </Grid>

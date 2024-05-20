@@ -26,11 +26,11 @@ import { AddSchoolNoticeDetails, getSchoolNoticeDetails, resetSchoolNoticeDetail
 import { number } from 'prop-types';
 import { getCalendarFormat } from '../Common/utils1';
 import ClassFeeList from './ClassFeeList';
-import { getAcademicYear, getFeeName,AddFeeDetails, resetAddFeesDetailsMsg, getClassFeeList, getFeeDetails, resetDeleteFeeDetails } from 'src/requests/Fees/RequestFees';
+import { getAcademicYear, getFeeName, AddFeeDetails, resetAddFeesDetailsMsg, getClassFeeList, getFeeDetails, resetDeleteFeeDetails } from 'src/requests/Fees/RequestFees';
 import { IAddFeesBody } from 'src/Interface/Fees/IFees';
 
 function AddFee() {
-    const deleteFeeDetailsMsg =  useSelector((state: RootState) => state.Fees.deleteFeeDetailsMsg);
+  const deleteFeeDetailsMsg = useSelector((state: RootState) => state.Fees.deleteFeeDetailsMsg);
 
   const Class = useSelector((state: RootState) => state.Enquiry.Class);
   const AcademicYear = useSelector((state: RootState) => state.Fees.AcademicYear);
@@ -59,20 +59,20 @@ function AddFee() {
   const [ClassErrorMessage, setClassErrorMessage] = useState('')
   const [TitleErrorMessage, setTitleErrorMessage] = useState('')
   const [AmountErrorMessage, setAmountErrorMessage] = useState('')
-  const [FeeNameErrorMessage,setFeeNameErrorMessage] = useState('')
+  const [FeeNameErrorMessage, setFeeNameErrorMessage] = useState('')
   const [selectdateErrorMessage, setselectdateErrorMessage] = useState('')
-  const [FeeTypeErrorMessage,setFeeTypeErrorMessage] = useState('')
+  const [FeeTypeErrorMessage, setFeeTypeErrorMessage] = useState('')
   const [EndDateErrorMessage, setEndDateErrorMessage] = useState('')
 
 
   const dispatch = useDispatch();
   useEffect(() => {
     if (deleteFeeDetailsMsg !== '') {
-        console.log(deleteFeeDetailsMsg)
+      console.log(deleteFeeDetailsMsg)
       toast.success(deleteFeeDetailsMsg);
       dispatch(resetDeleteFeeDetails())
       dispatch(getClassFeeList())
-     
+
     }
   }, [deleteFeeDetailsMsg])
 
@@ -82,22 +82,23 @@ function AddFee() {
     dispatch(getFeeName())
     dispatch(getClassFeeList())
   }, [dispatch]);
-useEffect(()=>{
-    if(Id !=''){
-    dispatch(getFeeDetails({ID:Number(Id)}))
-    }
-},[Id])
   
-useEffect(()=>{
-    if(FeeDetails != null){
-        setFeeType(FeeDetails.FeeType)
-        setEndDate(getCalendarFormat(FeeDetails.EndDate))
-        setAmount(FeeDetails.Amount)
-        setFeeNameID(FeeDetails.FeeNameId)
-        setAcademicYearID(FeeDetails.AcademicYearId)
-        setClassID(FeeDetails.ClassId)
+  useEffect(() => {
+    if (Id != '') {
+      dispatch(getFeeDetails({ ID: Number(Id) }))
     }
-},[FeeDetails])
+  }, [Id])
+
+  useEffect(() => {
+    if (FeeDetails != null) {
+      setFeeType(FeeDetails.FeeType)
+      setEndDate(getCalendarFormat(FeeDetails.EndDate))
+      setAmount(FeeDetails.Amount)
+      setFeeNameID(FeeDetails.FeeNameId)
+      setAcademicYearID(FeeDetails.AcademicYearId)
+      setClassID(FeeDetails.ClassId)
+    }
+  }, [FeeDetails])
 
   useEffect(() => {
     if (AddFeeDetailsMsg !== '') {
@@ -114,16 +115,6 @@ useEffect(()=>{
     }
   }, [Id])
 
-  useEffect(() => {
-    if (SchoolNoticeDetails !== null) {
-      setClassID(SchoolNoticeDetails.ClassId)
-      setTitle(SchoolNoticeDetails.NoticeTitle)
-      setNoticeDescription(SchoolNoticeDetails.NoticeDescription)
-      setSelectDate(getCalendarFormat(SchoolNoticeDetails.NoticeDate))
-      setFileName(SchoolNoticeDetails.NoticeFileName)
-    }
-    console.log(SchoolNoticeDetails)
-  }, [SchoolNoticeDetails])
 
   const clickAcademicYear = (value) => {
     setAcademicYearID(value);
@@ -145,28 +136,28 @@ useEffect(()=>{
   }
   const clickAmount = (value) => {
     if (!isNaN(+value))
-    setAmount(value);
+      setAmount(value);
     setAmountErrorMessage("");
   }
-const clickEndDate = (value) =>{
-  const selectedDate = new Date(value);
-  const currentDate = new Date();
-  if (selectedDate < currentDate) {
-    setEndDateErrorMessage("End Date could not be past date.");
-} else {
-  setEndDate(value);
-  setEndDateErrorMessage("");
-}
-}
-const clickFeeType = (value) =>{
+  const clickEndDate = (value) => {
+    const selectedDate = new Date(value);
+    const currentDate = new Date();
+    if (selectedDate < currentDate) {
+      setEndDateErrorMessage("End Date could not be past date.");
+    } else {
+      setEndDate(value);
+      setEndDateErrorMessage("");
+    }
+  }
+  const clickFeeType = (value) => {
     setFeeType(value);
 
-}
-   const clickNoticeDate = (value) => {
+  }
+  const clickNoticeDate = (value) => {
     setSelectDate(value);
     setselectdateErrorMessage("");
   }
- const clickCancel = () =>{
+  const clickCancel = () => {
     setFeeType("")
     setEndDate("")
     setAmount("")
@@ -174,24 +165,24 @@ const clickFeeType = (value) =>{
     setFeeNameID("0")
     setClassID("0")
     setID('')
- }
+  }
 
   if (Id !== '') {
     console.log(Id)
   }
   const IsFormValid = () => {
     let isValid = true;
-    if (AcademicYearID === "0"){
-        setAcademicYearErrorMessage("Please select Academic Year")
-        isValid = false
+    if (AcademicYearID === "0") {
+      setAcademicYearErrorMessage("Please select Academic Year")
+      isValid = false
     } else {
-        setAcademicYearErrorMessage("")
+      setAcademicYearErrorMessage("")
     }
-    if (FeeNameID ==="0"){
-        setFeeNameErrorMessage("Please select Fee Name")
-        isValid = false
+    if (FeeNameID === "0") {
+      setFeeNameErrorMessage("Please select Fee Name")
+      isValid = false
     } else {
-        setFeeNameErrorMessage("")
+      setFeeNameErrorMessage("")
     }
     if (ClassID === "0") {
       setClassErrorMessage("Please select student's class")
@@ -199,23 +190,23 @@ const clickFeeType = (value) =>{
     } else {
       setClassErrorMessage("")
     };
-    if (Amount === ""){
-        setAmountErrorMessage("Please enter Fee Amount")
-        isValid = false
+    if (Amount === "") {
+      setAmountErrorMessage("Please enter Fee Amount")
+      isValid = false
     } else {
-        setAmountErrorMessage("")
+      setAmountErrorMessage("")
     }
     if (FeeType === "") {
-        setFeeTypeErrorMessage("Please enter Fee Type")
-        isValid = false
+      setFeeTypeErrorMessage("Please enter Fee Type")
+      isValid = false
     } else {
-        setFeeTypeErrorMessage("")
+      setFeeTypeErrorMessage("")
     }
-    if (EndDate === ""){
-        setEndDateErrorMessage("Please select End Date")
-        isValid = false
-    } else{
-        setEndDateErrorMessage("")
+    if (EndDate === "") {
+      setEndDateErrorMessage("Please select End Date")
+      isValid = false
+    } else {
+      setEndDateErrorMessage("")
     }
     return isValid
   }
@@ -233,8 +224,8 @@ const clickFeeType = (value) =>{
         Date: EndDate
       }
       dispatch(AddFeeDetails(FeeDetails))
-      
-      console.log(IsFormValid())                                                       
+
+      console.log(IsFormValid())
     }
     else {
       // If the form is not valid, show an error message
@@ -243,59 +234,59 @@ const clickFeeType = (value) =>{
 
   }
 
-const clickEdit = (value) =>{
+  const clickEdit = (value) => {
     setID(value)
     console.log(Id)
-}
+  }
 
 
   return (
     <>
       <PageHeader heading={'Add Fee Form'} />
-      <Container sx={{ py: 2}}>
+      <Container sx={{ py: 2 }}>
         <Card>
-        <Box p={1}>
-          <Grid container spacing={2} rowSpacing={2}>
-          <Grid item xs={6} sm={6}>
-          <Dropdown
-            ItemList={AcademicYear}
-            Label="Academic Year"
-            DefaultValue={AcademicYearID}
-            ClickItem={clickAcademicYear}
-            Placeholder="Select Academic Year"
-            ErrorMessage={AcademicYearErrorMessage}
-          />
-          </Grid>
-          <Grid item xs={6} sm={6}>
-          <Dropdown
-            ItemList={Class}
-            Label=""
-            DefaultValue={ClassID}
-            ClickItem={clickClass}
-            Placeholder="Select Class"
-            ErrorMessage={ClassErrorMessage}
-          />
-          </Grid>
-          <Grid item xs={6} sm={6} sx={{ mt: 2.7 }}>
-          <Dropdown
-            ItemList={FeeName}
-            Label=""
-            DefaultValue={FeeNameID}
-            ClickItem={clickFeeName}
-            Placeholder="Select Fee Name"
-            ErrorMessage={FeeNameErrorMessage}
-          />
-          </Grid>
-           
-            <Grid item xs={6} sm={6}>
-              <InputField
-                Item={Amount}
-                Label="Amount (₹)"
-                ClickItem={clickAmount}
-                ErrorMessage={AmountErrorMessage}
-              />
-            </Grid>
-            <Grid item xs={6} sm={6}  sx={{ mt: .7 }}>
+          <Box p={1}>
+            <Grid container spacing={2} rowSpacing={2}>
+              <Grid item xs={6} sm={6}>
+                <Dropdown
+                  ItemList={AcademicYear}
+                  Label="Academic Year"
+                  DefaultValue={AcademicYearID}
+                  ClickItem={clickAcademicYear}
+                  Placeholder="Select Academic Year"
+                  ErrorMessage={AcademicYearErrorMessage}
+                />
+              </Grid>
+              <Grid item xs={6} sm={6}>
+                <Dropdown
+                  ItemList={Class}
+                  Label=""
+                  DefaultValue={ClassID}
+                  ClickItem={clickClass}
+                  Placeholder="Select Class"
+                  ErrorMessage={ClassErrorMessage}
+                />
+              </Grid>
+              <Grid item xs={6} sm={6} sx={{ mt: 2.7 }}>
+                <Dropdown
+                  ItemList={FeeName}
+                  Label=""
+                  DefaultValue={FeeNameID}
+                  ClickItem={clickFeeName}
+                  Placeholder="Select Fee Name"
+                  ErrorMessage={FeeNameErrorMessage}
+                />
+              </Grid>
+
+              <Grid item xs={6} sm={6}>
+                <InputField
+                  Item={Amount}
+                  Label="Amount (₹)"
+                  ClickItem={clickAmount}
+                  ErrorMessage={AmountErrorMessage}
+                />
+              </Grid>
+              <Grid item xs={6} sm={6} sx={{ mt: .7 }}>
                 <InputField
                   Item={FeeType}
                   Label="Fee Type"
@@ -303,35 +294,35 @@ const clickEdit = (value) =>{
                   ErrorMessage={FeeTypeErrorMessage}
                 />
               </Grid>
-            <Grid item xs={6}>
-              <CalendarField
-                Item={EndDate}
-                Label=" End Date *"
-                ClickItem={clickEndDate}
-                ErrorMessage={EndDateErrorMessage}
-              />
+              <Grid item xs={6}>
+                <CalendarField
+                  Item={EndDate}
+                  Label=" End Date *"
+                  ClickItem={clickEndDate}
+                  ErrorMessage={EndDateErrorMessage}
+                />
+              </Grid>
             </Grid>
-          </Grid>
-         <br />
-         <Grid item xs={12}>
-                                        <Box
-                                            sx={{
-                                                display: 'flex',
-                                                justifyContent: 'center',
-                                                gap: 3
-                                            }}>
-                                             <ButtonPrimary onClick={clickSubmit} >Save</ButtonPrimary>
-                                             <ButtonPrimary onClick={clickCancel} >Clear</ButtonPrimary>
-                                        </Box>
-                                    </Grid>
-        
-                                    </Box>
+            <br />
+            <Grid item xs={12}>
+              <Box
+                sx={{
+                  display: 'flex',
+                  justifyContent: 'center',
+                  gap: 3
+                }}>
+                <ButtonPrimary onClick={clickSubmit} >Save</ButtonPrimary>
+                <ButtonPrimary onClick={clickCancel} >Clear</ButtonPrimary>
+              </Box>
+            </Grid>
+
+          </Box>
         </Card>
         <br></br>
-       
+
 
       </Container >
-    <ClassFeeList ClassFeeId={clickEdit} />
+      <ClassFeeList ClassFeeId={clickEdit} />
 
     </>
   )
