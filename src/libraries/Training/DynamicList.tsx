@@ -73,7 +73,7 @@ const DynamicList = ({
                 <TableRow key={index}>
 
                   {item.Text1 != undefined && (
-                    <TableCell align="left">{item.Text1}</TableCell>
+                    <TableCell align="center">{item.Text1}</TableCell>
                   )}
                   {item.Text2 != undefined && (
                     <TableCell align="center">{item.Text2}</TableCell>

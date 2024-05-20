@@ -1,7 +1,7 @@
 import CallIcon from '@mui/icons-material/Call'
 import { Container, Grid, Button, Typography, Box, IconButton, Tooltip } from '@mui/material'
 import DynamicList from 'src/libraries/Training/DynamicList'
-import PageHeader from 'src/libraries/heading/PageHeader'
+import PageHeader from 'src/library/heading/pageHeader'
 import EditIcon from '@mui/icons-material/Edit';
 import { useEffect, useState } from 'react'
 import DeleteIcon from '@mui/icons-material/Delete';
@@ -59,12 +59,10 @@ const ClassFeeList = ({ClassFeeId}) => {
   }
   return (
     <>
+         <PageHeader heading={'Class Fee List'} />
     <Container>
       <Grid container spacing={2} sx={{ width: '100%', overflow: 'hidden' }} >
-      <Grid item xs={12}>
-                    {/* Display follow-up count */}
-                    <PageHeader heading={`Class Fee List`} subheading={''} />
-                </Grid>
+
         <Grid item xs={12}>
           {/* <Typography variant="h3" gutterBottom>Enquiry List</Typography> */}
         </Grid>

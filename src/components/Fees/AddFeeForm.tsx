@@ -149,8 +149,14 @@ useEffect(()=>{
     setAmountErrorMessage("");
   }
 const clickEndDate = (value) =>{
-    setEndDate(value);
-    setselectdateErrorMessage("");
+  const selectedDate = new Date(value);
+  const currentDate = new Date();
+  if (selectedDate < currentDate) {
+    setEndDateErrorMessage("End Date could not be past date.");
+} else {
+  setEndDate(value);
+  setEndDateErrorMessage("");
+}
 }
 const clickFeeType = (value) =>{
     setFeeType(value);
@@ -324,7 +330,7 @@ const clickEdit = (value) =>{
         <br></br>
        
 
-      </Container ><br /><br />
+      </Container >
     <ClassFeeList ClassFeeId={clickEdit} />
 
     </>

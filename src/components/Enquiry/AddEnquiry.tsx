@@ -141,7 +141,7 @@ const AddEnquiry = () => {
         } else if (selectedDate > twoYearsAgo) {
             setBirthDateErrorMessage("Child must be at least 1 years old");
         } else {
-            // Clear error message if the selected date is valid
+            // Clear error message if  the selected date is valid
             setBirthDateErrorMessage("");
             setBirthDate(value);
             setAge(calculateAge(value).toString());
